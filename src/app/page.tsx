@@ -1,101 +1,108 @@
+import Link from "next/link"
 import Image from "next/image";
+import Hero from "@/assets/hero.svg"
 
 export default function Home() {
-  return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-semibold">
-              src/app/page.tsx
-            </code>
-            .
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
+  return (    
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:min-w-44"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+     <main className="w-full bg-defaultWhite p-5">
+      <div className="max-w-7xl m-auto mt-8 text-center">
+          <h1 className="font-semibold text-5xl">Automatize sua rotina com a nossa gestão inteligente e conquiste mais tempo para o que importa.</h1>
+          <p className="mt-9 text-xl font-semibold">Transforme a forma como você gerencia seus atendimentos com uma solução ágil, intuitiva e feita para facilitar sua rotina.</p>
+          <button className="bg-defaultSoftGreen  p-3 px-3 mt-9 h-16 rounded-lg text-xl font-semibold text-defaultWhite md:text-2xl">
+              <Link href="">
+                 Teste gratuitamente por 30 dias.
+              </Link>
+          </button>
+          <p className="mt-3 mb-2 font-semibold text-lg">E fique tranquilo não pedimos seu cartão para testar</p>
+      </div>
+  
+      <div className="max-w-7xl min-h-[70vh]  m-auto mt-20 flex flex-col md:flex-row justify-around text-center gap-5 items-center">
+        <h2 className="font-semibold text-6xl leading-snug"><span className="font-extrabold text-defaultDarkGreen">Otimize seu tempo,</span> atenda melhor seus pacientes e tenha mais qualidade de vida.</h2>
+        <Image src={Hero} alt="Imagem de um gerenciamento online" width={600}/>
+      </div>
+      <div className="w-full min-h-[80vh] mt-20  p-4 bg-defaultGreen  rounded-3xl text-center flex items-center justify-center flex-col">
+        <h1 className="font-semibold text-5xl text-defaultWhite mb-12">Tudo que você precisa em um só lugar</h1>
+        <div className="w-full flex flex-col items-center justify-center gap-4 md:flex-row">
+
+          <ul className="w-full max-w-80 p-5 bg-defaultWhite text-center rounded-3xl">
+              <h2 className="font-bold">Agendamentos</h2>
+             <li>Agende seus pacientes com facilidade e envie notificações</li> 
+             <li>Agende seus pacientes com facilidade e envie notificações</li>
+             <li>Agende seus pacientes com facilidade e envie notificações</li>
+             <li>Agende seus pacientes com facilidade e envie notificações</li>
+          </ul>
+          
+          <ul className="w-full max-w-80 p-5 bg-defaultWhite text-center rounded-3xl">
+              <h2 className="font-bold">Agendamentos</h2>
+             <li>Agende seus pacientes com facilidade e envie notificações</li> 
+             <li>Agende seus pacientes com facilidade e envie notificações</li>
+             <li>Agende seus pacientes com facilidade e envie notificações</li>
+             <li>Agende seus pacientes com facilidade e envie notificações</li>
+          </ul>
+          
+            <ul className="w-full max-w-80 p-5 bg-defaultWhite text-center rounded-3xl">
+              <h2 className="font-bold">Agendamentos</h2>
+             <li>Agende seus pacientes com facilidade e envie notificações</li> 
+             <li>Agende seus pacientes com facilidade e envie notificações</li>
+             <li>Agende seus pacientes com facilidade e envie notificações</li>
+             <li>Agende seus pacientes com facilidade e envie notificações</li>
+          </ul>
+          
+          
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
+
+      </div>
+
+
+      <div className="w-full min-h-[80vh] mt-20  p-4 bg-defaultWhite rounded-3xl text-center flex items-center justify-center flex-col">
+        <h1 className="font-semibold text-5xl text-defaultDarkGreen mb-12">Tudo que você precisa em um só lugar</h1>
+        <div className="w-full flex flex-col items-center justify-center gap-4 md:flex-row">
+
+          <ul className="w-full max-w-80 p-5 bg-defaultGreen text-defaultWhite text-center rounded-3xl">
+              <h2 className="font-bold">Agendamentos</h2>
+             <li>Agende seus pacientes com facilidade e envie notificações</li> 
+             <li>Agende seus pacientes com facilidade e envie notificações</li>
+             <li>Agende seus pacientes com facilidade e envie notificações</li>
+             <li>Agende seus pacientes com facilidade e envie notificações</li>
+          </ul>
+          
+          <ul className="w-full max-w-80 p-5 bg-defaultGreen text-defaultWhite text-center rounded-3xl">
+              <h2 className="font-bold">Agendamentos</h2>
+             <li>Agende seus pacientes com facilidade e envie notificações</li> 
+             <li>Agende seus pacientes com facilidade e envie notificações</li>
+             <li>Agende seus pacientes com facilidade e envie notificações</li>
+             <li>Agende seus pacientes com facilidade e envie notificações</li>
+          </ul>
+          
+            <ul className="w-full max-w-80 p-5 bg-defaultGreen text-defaultWhite  text-center rounded-3xl">
+              <h2 className="font-bold">Agendamentos</h2>
+             <li>Agende seus pacientes com facilidade e envie notificações</li> 
+             <li>Agende seus pacientes com facilidade e envie notificações</li>
+             <li>Agende seus pacientes com facilidade e envie notificações</li>
+             <li>Agende seus pacientes com facilidade e envie notificações</li>
+          </ul>
+          
+          
+        </div>
+
+      </div>
+
+      <footer className="h-[600px] bg-defaultDarkGreen text-white flex flex-col items-center justify-center">
+  <div className="text-center">
+    <h2 className="text-2xl font-bold mb-4">Entre em contato</h2>
+    <p className="text-lg">Email: contato@seudominio.com</p>
+    <p className="text-lg">Telefone: (XX) XXXX-XXXX</p>
+    <div className="mt-6 flex gap-4 justify-center">
+      <a href="#" className="hover:underline">Facebook</a>
+      <a href="#" className="hover:underline">Instagram</a>
+      <a href="#" className="hover:underline">LinkedIn</a>
     </div>
-  );
+  </div>
+  <h4>Created-by <Link href="https://www.linkedin.com/in/jonasoliveira-desenvolvedor/">Jonas Oliveira</Link></h4>
+</footer>
+     
+        
+    </main>
+  ); 
 }
