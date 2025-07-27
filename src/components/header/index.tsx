@@ -6,7 +6,7 @@ export function Header() {
     return (
         <header className="w-full flex items-center px-4 py-4 bg-defaultWhite h-30">
             <div className="w-full flex items-center justify-between max-w-7xl m-auto ">
-                <Link href="/dashboard" >
+                <Link href="/" >
                     <Image src={logo} alt="logo marca" width={180} height={40} />
                 </Link>  
 
