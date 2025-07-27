@@ -10,10 +10,6 @@ import "react-big-calendar/lib/css/react-big-calendar.css";
 
 const localizer = momentLocalizer(moment);
 
-type ScheduleDTO = {
-  dayOfWeek: string;
-  sessionTime: string; // formato: "15:00"
-};
 
 export function CareCalendar() {
   const dayMap: Record<string, number> = {
