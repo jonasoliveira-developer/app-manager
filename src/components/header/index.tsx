@@ -4,8 +4,8 @@ import logo from "@/assets/logo-copia.png"
 
 export function Header() {
     return (
-        <header className="w-full flex items-center px-4 py-4 bg-defaultWhite h-30">
-            <div className="w-full flex items-center justify-between max-w-7xl m-auto ">
+        <header className="w-full flex items-center py-4 bg-defaultWhite h-30">
+            <div className="w-full flex items-center justify-between max-w-7xl mx-auto px-4 ">
                 <Link href="/" >
                     <Image src={logo} alt="logo marca" width={180} height={40} />
                 </Link>  

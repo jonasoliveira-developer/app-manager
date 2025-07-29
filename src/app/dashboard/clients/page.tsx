@@ -25,34 +25,34 @@ export default function Clients() {
 
     return (
         <Container>
-               <div className="overflow-x-auto p-4">
-      <table className="min-w-full bg-defaultWhite text-sm text-left rounded-lg shadow-md">
-        <thead className="bg-defaultBlack text-defaultWhite">
-          <tr>
-            <th className="p-2">Nome</th>
-            <th className="p-2">Local</th>
-            <th className="p-2">Prontuário</th>
-            <th className="p-2 text-center">Ver</th>
-          </tr>
-        </thead>
-        <tbody>
-          {pacientes.map((paciente, index) => (
-            <tr
-              key={index}
-              onClick={() => handleRowClick(index)}
-              className="cursor-pointer hover:bg-defaultMintGreen transition-colors border-b" >
-              <td className="p-2">{paciente.nome}</td>
-              <td className="p-2">{paciente.local}</td>
-              <td className="p-2">{paciente.prontuario}</td>
-              <td className="p-2 flex justify-center">
-                <FaEye className="text-defaultDarkGreen hover:text-defaultAquaGreen" />
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-    </div>
-        </Container>
+               <div className="overflow-x-auto mt-5">
+                    <table className="min-w-full bg-defaultWhite text-sm text-left rounded-lg shadow-md">
+                      <thead className="bg-defaultBlack text-defaultWhite">
+                        <tr>
+                          <th className="p-2">Nome</th>
+                          <th className="p-2">Local</th>
+                          <th className="p-2">Prontuário</th>
+                          <th className="p-2 text-center">Ver</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {pacientes.map((paciente, index) => (
+                          <tr
+                            key={index}
+                            onClick={() => handleRowClick(index)}
+                            className="cursor-pointer hover:bg-defaultMintGreen transition-colors border-b" >
+                            <td className="p-2">{paciente.nome}</td>
+                            <td className="p-2">{paciente.local}</td>
+                            <td className="p-2">{paciente.prontuario}</td>
+                            <td className="p-2 flex justify-center">
+                              <FaEye className="text-defaultDarkGreen hover:text-defaultAquaGreen" />
+                            </td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                 </div>
+         </Container>
   );
 
 }
