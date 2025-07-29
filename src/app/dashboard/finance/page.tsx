@@ -1,3 +1,4 @@
+import { Container } from "@/components/container";
 
 
 export default function Finance() {
@@ -19,6 +20,8 @@ export default function Finance() {
   const totalClosed = calcularTotalPorStatus("CLOSED");
   const totalOpen = calcularTotalPorStatus("OPEN");
   const totalLate = calcularTotalPorStatus("LATE");
+  const totalGeral = pagamentos.reduce((total, p) => total + p.valor, 0);
+
 
   type StatusPagamento = "CLOSED" | "OPEN" | "LATE";
 
@@ -29,22 +32,35 @@ export default function Finance() {
   };
 
   return (
-    <div className="p-4 max-w-7xl mx-auto">
+    <Container>
       {/* Cards de resumo */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
-        <div className="rounded p-4 bg-blue-500 text-defaultWhite shadow">
-          <p className="text-sm">FECHADOS</p>
-          <p className="text-2xl font-bold">R$ {totalClosed}</p>
-        </div>
-        <div className="rounded p-4 bg-green-500 text-defaultWhite shadow">
-          <p className="text-sm">ABERTOS</p>
-          <p className="text-2xl font-bold">R$ {totalOpen}</p>
-        </div>
-        <div className="rounded p-4 bg-yellow-400 text-defaultWhite shadow">
-          <p className="text-sm">ATRASADOS</p>
-          <p className="text-2xl font-bold">R$ {totalLate}</p>
-        </div>
+      <div className="mt-5">
+            {/* Cards de resumo reorganizados */}
+            <div className="grid grid-cols-2 gap-4 mb-6">
+                    {/* Geral - Azul */}
+                    <div className="rounded p-4 bg-blue-400 text-defaultWhite shadow">
+                      <p className="text-sm">GERAL</p>
+                      <p className="text-2xl font-bold">R$ {totalGeral}</p>
+                    </div>
+                    {/* Encerrados - Verde */}
+                    <div className="rounded p-4 bg-green-400 text-defaultWhite shadow">
+                      <p className="text-sm">ENCERRADOS</p>
+                      <p className="text-2xl font-bold">R$ {totalClosed}</p>
+                    </div>
+                    {/* Abertos - Amarelo */}
+                    <div className="rounded p-4 bg-yellow-400 text-defaultWhite shadow">
+                      <p className="text-sm">ABERTOS</p>
+                      <p className="text-2xl font-bold">R$ {totalOpen}</p>
+                    </div>
+
+                    {/* Atrasados - Vermelho */}
+                    <div className="rounded p-4 bg-red-400 text-defaultWhite shadow">
+                      <p className="text-sm">ATRASADOS</p>
+                      <p className="text-2xl font-bold">R$ {totalLate}</p>
+                    </div>
+            </div>
       </div>
+
 
       {/* Tabela */}
       <div className="overflow-x-auto rounded border">
@@ -68,6 +84,6 @@ export default function Finance() {
 
         </table>
       </div>
-    </div>
+    </Container>
   );
 }
