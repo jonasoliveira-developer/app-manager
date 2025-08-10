@@ -9,12 +9,12 @@ export default function Home() {
       <div className="max-w-7xl m-auto mt-8 text-center">
           <h1 className="font-semibold text-5xl">Automatize sua rotina com a nossa gestão inteligente e conquiste mais tempo para o que importa.</h1>
           <p className="mt-9 text-xl font-semibold">Transforme a forma como você gerencia seus atendimentos com uma solução ágil, intuitiva e feita para facilitar sua rotina.</p>
-          <button className="bg-defaultSoftGreen  p-3 px-3 mt-9 h-16 rounded-lg text-xl font-semibold text-defaultWhite md:text-2xl">
-              <Link href="">
-                 Teste gratuitamente por 30 dias.
-              </Link>
-          </button>
-          <p className="mt-3 mb-2 font-semibold text-lg">E fique tranquilo não pedimos seu cartão para testar</p>
+          <Link href="/user/create">
+            <button className="bg-defaultDarkGreen  px-5 mt-9 h-16 rounded-lg text-xl font-semibold text-defaultWhite md:text-2xl w-full max-w-2xl">
+                  Teste gratuitamente por 30 dias.
+            </button>
+          </Link>
+          <p className="mt-3 mb-2  text-lg">E fique tranquilo não pedimos seu cartão para testar</p>
       </div>
   
       <div className="max-w-7xl min-h-[70vh]  m-auto mt-20 flex flex-col md:flex-row justify-around text-center gap-5 items-center">

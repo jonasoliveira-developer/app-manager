@@ -9,7 +9,7 @@ export function DashboardHeader () {
       const pathname = usePathname();
 
   const navLinks = [
-    { name: "Agenda", href: "/dashboard" },
+    { name: "Agenda", href: "/dashboard", exact: true },
     { name: "Pacientes", href: "/dashboard/clients" },
     { name: "Financeiro", href: "/dashboard/finance" },
   ];
@@ -18,14 +18,17 @@ export function DashboardHeader () {
       <Container>
         <header className="max-w-7xl m-auto mt-5 flex items-center px-4 bg-defaultGreen p-4 rounded gap-4">
               {navLinks.map((link) => {
-                const isActive = pathname === link.href;
+                const isActive = link.exact
+                    ? pathname === link.href
+                    : pathname.startsWith(link.href);
+
 
                 return (
                   <Link
                     key={link.name}
                     href={link.href}
                     className={`font-bold text-xl ${
-                      isActive ? "text-blue-950 underline" : "text-defaultWhite"
+                      isActive ? "text-black underline" : "text-defaultWhite"
                     }`}
                   >
                     {link.name}

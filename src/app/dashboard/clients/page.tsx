@@ -1,57 +1,38 @@
-"use client"
 
 import {Container} from "@/components/container"
-import { FaEye } from "react-icons/fa";
+import { TicketItem } from "@/app/dashboard/components/ticket";
+import Link from "next/link";
+
 
 
 export default function Clients() {
-    const pacientes = [
-  { nome: "Ana Souza", local: "Barra", prontuario: "12345" },
-  { nome: "Carlos Lima", local: "Ondina", prontuario: "67890" },
-  { nome: "Maria Silva", local: "Itapuã", prontuario: "54321" },
-  { nome: "João Almeida", local: "Pituba", prontuario: "11223" },
-  { nome: "Fernanda Costa", local: "Rio Vermelho", prontuario: "33445" },
-  { nome: "Lucas Ferreira", local: "Cabula", prontuario: "55667" },
-  { nome: "Juliana Ramos", local: "Caminho das Árvores", prontuario: "77889" },
-  { nome: "Bruno Santos", local: "São Cristóvão", prontuario: "99001" },
-  { nome: "Patrícia Gomes", local: "Liberdade", prontuario: "13579" },
-  { nome: "Felipe Andrade", local: "Bonfim", prontuario: "24680" },
-];
-
-      const handleRowClick = (index: number) => {
-    
-  };
 
 
     return (
         <Container>
+          <main className="mt-6 mb-2">
+               <div className="flex items-center justify-between">
+                  <h1 className="text-3xl font-bold">Pacientes</h1>
+                  <Link href="/dashboard/clients/new" className="bg-defaultFlagGreen px-4 py-1 rounded text-defaultWhite ">
+                    Novo paciente
+                  </Link>
+               </div>
                <div className="overflow-x-auto mt-5">
                     <table className="min-w-full bg-defaultWhite text-sm text-left rounded-lg shadow-md">
                       <thead className="bg-defaultBlack text-defaultWhite">
                         <tr>
                           <th className="p-2">Nome</th>
-                          <th className="p-2">Local</th>
-                          <th className="p-2">Prontuário</th>
-                          <th className="p-2 text-center">Ver</th>
+                          <th className="p-2 hidden sm:block">telefone</th>
+                          <th className="p-2">local</th>
+                          <th className="p-2 text-center">Prontuario</th>
                         </tr>
                       </thead>
                       <tbody>
-                        {pacientes.map((paciente, index) => (
-                          <tr
-                            key={index}
-                            onClick={() => handleRowClick(index)}
-                            className="cursor-pointer hover:bg-defaultMintGreen transition-colors border-b" >
-                            <td className="p-2">{paciente.nome}</td>
-                            <td className="p-2">{paciente.local}</td>
-                            <td className="p-2">{paciente.prontuario}</td>
-                            <td className="p-2 flex justify-center">
-                              <FaEye className="text-defaultDarkGreen hover:text-defaultAquaGreen" />
-                            </td>
-                          </tr>
-                        ))}
+                        <TicketItem />
                       </tbody>
                     </table>
                  </div>
+            </main>
          </Container>
   );
 
