@@ -24,7 +24,7 @@ export function Header() {
         <header className="w-full flex items-center py-2 bg-defaultWhite h-30">
             <div className="w-full flex flex-col items-center gap-2 justify-between md:flex-row md:items-start max-w-7xl mx-auto px-4">
                 {isAuthenticated ? (
-                    <Link href="/user/profile">
+                    <Link href="/user/profile" className="flex items-center gap-3">
                         <Image
                             src={prifileImage}
                             alt="Perfil do usuário"
@@ -32,6 +32,7 @@ export function Header() {
                             height={80}
                             className="rounded-full object-cover hover:opacity-80 transition"
                         />
+                        <h1 className="text-3xl">Fulano de Satanna</h1>
                     </Link>
 
                 ) : (
