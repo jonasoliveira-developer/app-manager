@@ -6,7 +6,7 @@ export default function Home() {
   return (    
 
      <main className="w-full bg-defaultWhite p-5">
-      <div className="max-w-7xl m-auto mt-8 text-center">
+      <div className="max-w-7xl  m-auto mt-8 text-center py-5">
           <h1 className="font-semibold text-5xl">Automatize sua rotina com a nossa gestão inteligente e conquiste mais tempo para o que importa.</h1>
           <p className="mt-9 text-xl font-semibold">Transforme a forma como você gerencia seus atendimentos com uma solução ágil, intuitiva e feita para facilitar sua rotina.</p>
           <Link href="/user/create">

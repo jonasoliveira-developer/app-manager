@@ -81,7 +81,7 @@ const eventStyleGetter = (event: any) => {
 
 export function CareCalendar() {
   return (
-    <div className="w-full pt-5">
+    <div className="w-full">
       <Calendar
         localizer={localizer}
         messages={messages}
