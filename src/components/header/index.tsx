@@ -64,7 +64,7 @@ export function Header() {
                         );
                     })}
 
-                    {!isAuthenticated && (
+                    {!isAuthenticated && pathname === "/" && (
                         <Link href="/login">
                             <button className="bg-defaultGreen p-1 h-11 rounded-lg font-bold text-defaultWhite w-28 hover:bg-defaultSoftGreen">
                                 LOGIN
