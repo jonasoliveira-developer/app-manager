@@ -1,6 +1,6 @@
-import { NewCustomForm } from "@/app/dashboard/components/form";
+
 import { Container } from "@/components/container";
-import { NewUseru } from "@/components/form/newUser";
+import { NewUser } from "@/components/form/newUser";
 
 export default function CreateUser() {
    return (
@@ -9,7 +9,7 @@ export default function CreateUser() {
                    <h1 className="text-2xl md:text-3xl font-semibold mb-5">
                      Cadastre-se gratuitamente
                   </h1>
-                  <NewUseru />
+                  <NewUser />
                 </main>           
            </Container>
 

@@ -59,7 +59,7 @@ const userSchema = z.object({
 
 type FormData = z.infer<typeof userSchema>
 
-export function NewUseru() {
+export function NewUser() {
   const {
     register,
     handleSubmit,
