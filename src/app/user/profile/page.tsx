@@ -37,14 +37,13 @@ export default function UserProfile() {
 
   return (
     <Container>
-      <div className="flex justify-between items-center mb-6">
-        <h1 className="text-3xl font-bold">Perfil do Usuário</h1>
+      <div className="flex justify-end items-center mb-6">
         <button
           onClick={handleLogout}
-          className="flex items-center gap-2 px-4 py-2 bg-gray-200 text-gray-800 rounded hover:bg-gray-300 transition-colors"
+          className="flex items-center gap-2 px-4 py-2"
         >
           <FiLogOut size={20} />
-          Sair
+          <span className='text-defaultDarkGreen text-xl'>Sair</span>
         </button>
       </div>
 
