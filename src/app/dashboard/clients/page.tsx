@@ -1,4 +1,3 @@
-
 import { Container } from "@/components/container"
 import { TicketItem } from "@/app/dashboard/components/ticket";
 import Link from "next/link";

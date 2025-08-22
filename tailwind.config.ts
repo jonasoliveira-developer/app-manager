@@ -10,6 +10,7 @@ export default {
 extend: {
   colors : {
     defaultWhite: "#fefefe",
+    defaultSnow: "#f5f5f5",
     defaultBlack: "#000000",
     defaultLightGreen: "#6bdc31",
     defaultDarkGreen: "#267a12",
@@ -19,6 +20,7 @@ extend: {
     defaultOliveGreen: "#808000",
     defaultMossGreen: "#556b2f",
     defaultGreen: "#50c878",
+    defaultGreenHover: "#3fae66",
     defaultFlagGreen: "#009739",
     defaultAquaGreen: "#00ffcc",
     defaultMilitaryGreen: "#4b5320",

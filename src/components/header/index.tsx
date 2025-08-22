@@ -11,7 +11,7 @@ import { useAuth } from "@/context/AuthContext";
 
 
 export function Header() {
-    const { isAuthenticated } = useAuth();
+    const { isAuthenticated, user } = useAuth();
     const pathname = usePathname();
 
     const navLinks = [
@@ -21,9 +21,9 @@ export function Header() {
     ];
 
     return (
-        <header className="w-full flex items-center py-2 bg-defaultWhite h-30">
+        <header className="w-full flex items-center py-4 bg-defaultGreen h-30">
             <div
-                className={`w-full flex ${isAuthenticated ? "flex-col items-center gap-2" : "flex-row items-center"} justify-between md:flex-row md:items-start max-w-7xl mx-auto px-4`}
+                className={`w-full flex ${isAuthenticated ? "flex-col items-center gap-4" : "flex-row items-center"} justify-between md:flex-row md:items-center max-w-7xl mx-auto px-4 `}
             >
                 {isAuthenticated ? (
                     <Link href="/user/profile" className="flex items-center gap-3">
@@ -34,12 +34,12 @@ export function Header() {
                             height={80}
                             className="rounded-full object-cover hover:opacity-80 transition"
                         />
-                        <h1 className="text-3xl">Fulano de Satanna</h1>
+                        <h1 className="text-3xl text-defaultSnow">{user?.name}</h1>
                     </Link>
 
                 ) : (
                     <Link href="/">
-                        <h1 className="text-3xl font-bold text-defaultGreen">
+                        <h1 className="text-3xl font-bold text-defaultSnow">
                             Fisio<span className="text-defaultBlack">Admin</span>
                         </h1>
                     </Link>
@@ -56,7 +56,7 @@ export function Header() {
                             <Link
                                 key={link.name}
                                 href={link.href}
-                                className={`font-bold text-xl ${isActive ? "text-black underline" : "text-defaultGreen"
+                                className={`font-bold text-xl ${isActive ? "text-gray-950 underline" : "text-defaultSnow"
                                     }`}
                             >
                                 {link.name}
@@ -66,7 +66,7 @@ export function Header() {
 
                     {!isAuthenticated && pathname === "/" && (
                         <Link href="/login">
-                            <button className="bg-defaultGreen p-1 h-11 rounded-lg font-bold text-defaultWhite w-28 hover:bg-defaultSoftGreen">
+                            <button className=" border-2 border-defaultSnow p-1 h-11 rounded-lg font-bold text-defaultSnow w-28 hover:bg-defaultSnow hover:text-defaultGreen transition-all">
                                 LOGIN
                             </button>
                         </Link>

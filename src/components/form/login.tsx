@@ -5,15 +5,14 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import { z } from "zod"
 import { Input } from "@/components/input"
 import { useRouter } from "next/navigation"
-
-import { api } from "@/lib/api"
+import {showCustomToast} from "@/utils/toast"
 
 import { useAuth } from "@/context/AuthContext";
 
 
 const userSchema = z.object({
 
-    email: z.string()
+    email: z
         .email("Digite um e-mail válido")
         .min(1, "O e-mail é obrigatório"),
 
@@ -31,7 +30,7 @@ type FormData = z.infer<typeof userSchema>
 
 
 export function LoginForm() {
-     const { login } = useAuth();
+    const { login } = useAuth();
 
 
     const router = useRouter()
@@ -41,15 +40,15 @@ export function LoginForm() {
         mode: "onChange"
     });
 
+
     async function handlerAuthUser(data: FormData) {
         try {
-             await login(data.email, data.password);
-
-            router.replace("/dashboard")
-        } catch (error) {
-            console.error("Erro na requisição:", error);
+            await login(data.email, data.password);
+            showCustomToast("Seja bem vindes.", "success");
+            router.replace("/dashboard");
+        } catch (error: any) {
+            showCustomToast("Ops! Não foi possível fazer login. Verifique seus dados e tente novamente.", "error");
         }
-
     }
 
     return (
