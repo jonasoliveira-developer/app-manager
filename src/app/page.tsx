@@ -1,8 +1,10 @@
+"use client"
 import Link from "next/link"
 import Image from "next/image";
 import Hero from "@/assets/hero.svg"
 
 export default function Home() {
+
   return (    
 
      <main className="w-full bg-defaultWhite p-5">
