@@ -36,7 +36,6 @@ export default function RootLayout({
         <Toaster toastOptions={{duration:4000}} position="top-right" />
             <Header />
             {children}
-            <Footer />
         </AuthProvider>
         
       </body>
