@@ -5,6 +5,7 @@ import "./globals.css";
 import {Header} from "@/components/header"
 import { AuthProvider } from "@/context/AuthContext";
 import { Toaster } from "react-hot-toast";
+import Footer from "@/components/footer";
 
 
 
@@ -35,6 +36,7 @@ export default function RootLayout({
         <Toaster toastOptions={{duration:4000}} position="top-right" />
             <Header />
             {children}
+            <Footer />
         </AuthProvider>
         
       </body>

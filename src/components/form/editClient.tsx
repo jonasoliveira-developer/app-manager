@@ -103,7 +103,9 @@ export function EditClient({ params }: { params: { id: string } }) {
       });
 
       if (user) {
-        user.name = data.name ?? user.name
+        if(user.accessLevel == "CLIENT") {
+          user.name = data.name ?? user.name
+        }
       }
 
       showCustomToast("Paciente atualizado com sucesso!", "success");

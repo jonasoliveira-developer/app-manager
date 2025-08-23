@@ -74,7 +74,7 @@ export function NewUser() {
   async function handlerRegisterCustomer(data: FormData) {
     try {
 
-     await api.post("/users/create", {
+      await api.post("/users/create", {
         name: data.name,
         email: data.email,
         password: data.password,
@@ -111,7 +111,7 @@ export function NewUser() {
       <Input
         type="password"
         name="password"
-        placeholder="Digite a senha"
+        placeholder="Digite sua senha (Mín. 8 caracteres, 1 maiúscula, 1 minúscula, 1 número e 1 símbolo"
         error={errors.password?.message}
         register={register}
       />
