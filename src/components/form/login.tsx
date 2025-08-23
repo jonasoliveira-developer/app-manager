@@ -5,7 +5,7 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import { z } from "zod"
 import { Input } from "@/components/input"
 import { useRouter } from "next/navigation"
-import {showCustomToast} from "@/utils/toast"
+import { showCustomToast } from "@/utils/toast"
 
 import { useAuth } from "@/context/AuthContext";
 
@@ -65,13 +65,15 @@ export function LoginForm() {
             </div>
 
             <div className="w-full mt-2">
+
                 <Input
                     type="password"
                     name="password"
-                    placeholder="Digite a senha"
+                    placeholder="Digite sua senha (Mín. 8 caracteres, 1 maiúscula, 1 minúscula, 1 número e 1 símbolo"
                     error={errors.password?.message}
                     register={register}
                 />
+
             </div>
             <button
                 type="submit"
