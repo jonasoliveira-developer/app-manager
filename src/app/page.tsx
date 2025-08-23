@@ -5,16 +5,19 @@ import Image from "next/image";
 import Hero from "@/assets/hero.svg";
 import { useAuth } from "@/context/AuthContext";
   import { useRouter } from "next/navigation";
+import { useEffect } from "react";
 
 export default function Home() {
   const { isAuthenticated } = useAuth();
   
   const router = useRouter();
 
-  if (isAuthenticated) {
-    router.push("/dashboard");
-    return null;
-  }
+  useEffect(() => {
+    if (isAuthenticated) {
+      router.push("/dashboard");
+    }
+  }, [isAuthenticated, router]);
+
 
   return (
     <main className="w-full bg-defaultWhite p-5">
