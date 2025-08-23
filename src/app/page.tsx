@@ -11,7 +11,6 @@ export default function Home() {
   
   const router = useRouter();
 
-  if (isAuthenticated) return null;
   if (isAuthenticated) {
     router.push("/dashboard");
     return null;
