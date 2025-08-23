@@ -8,11 +8,10 @@ import { useAuth } from "@/context/AuthContext";
 
 export default function Home() {
   const { isAuthenticated } = useAuth();
-
-  // Se o usuário estiver logado, não renderiza a Home
-  if (isAuthenticated) return null;
-
+  
   const router = useRouter();
+
+  if (isAuthenticated) return null;
   if (isAuthenticated) {
     router.push("/dashboard");
     return null;
