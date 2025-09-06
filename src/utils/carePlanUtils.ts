@@ -39,7 +39,7 @@ export function generateEventsFromCarePlan(plan: {
     )?.[1];
     if (targetDay === undefined) continue;
 
-    let current = start.clone();
+    const current = start.clone();
     while (current.isSameOrBefore(end, "day")) {
       if (current.day() === targetDay) {
         const startTime = moment(`${current.format("YYYY-MM-DD")}T${sched.sessionTime}`);

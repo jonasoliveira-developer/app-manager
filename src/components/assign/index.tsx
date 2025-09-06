@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { useRef, useEffect, useState } from "react";
 
 interface SignatureFieldProps {
@@ -117,7 +118,7 @@ export function SignatureField({ name }: SignatureFieldProps) {
             {signed ? (
                 // ✅ Exibe apenas a imagem e o nome, com layout compacto
                 <div className="flex flex-col items-center justify-center mt-10 print:text-xs">
-                    <img
+                    <Image
                         src={signatureData ?? ""}
                         alt="Assinatura"
                         className="w-[300px] h-auto"
