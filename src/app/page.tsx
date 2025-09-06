@@ -5,18 +5,11 @@ import Image from "next/image";
 import Hero from "@/assets/hero.svg";
 import { useAuth } from "@/context/AuthContext";
 import { useRouter } from "next/navigation";
-import { useEffect } from "react";
+
 import { Header } from "@/components/header";
 
 export default function Home() {
-  const { isAuthenticated } = useAuth();
   const router = useRouter();
-
-  useEffect(() => {
-    if (isAuthenticated) {
-      router.push("/dashboard");
-    }
-  }, [isAuthenticated, router]);
 
   return (
     <>
