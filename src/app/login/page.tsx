@@ -20,10 +20,6 @@ export default function LoginPage() {
                             </h1>
                         </Link>
 
-                        <h2 className="text-2xl md:text-3xl font-semibold mb-5 text-center text-gray-800">
-                            Bem vindo
-                        </h2>
-
                         <LoginForm />
 
                         <p className="mt-4 text-center text-sm text-gray-600">
