@@ -23,6 +23,15 @@ const userSchema = z.object({
     })
     .optional(),
 
+  password: z.string()
+    .min(8, "A senha deve ter no mínimo 8 caracteres")
+    .regex(/[A-Z]/, "A senha deve conter ao menos uma letra maiúscula")
+    .regex(/[a-z]/, "A senha deve conter ao menos uma letra minúscula")
+    .regex(/[0-9]/, "A senha deve conter ao menos um número")
+    .regex(/[\W_]/, "A senha deve conter ao menos um caractere especial").optional(),
+
+
+
   councilRegistrationNumber: z
     .string()
     .regex(/^\d+$/, {
@@ -81,13 +90,14 @@ export function EditUser() {
       await api.put(`/users/${user?.id}`, {
         name: data.name,
         phoneNumber: data.phoneNumber,
+        password: data.password,
         councilRegistrationNumber: data.councilRegistrationNumber,
         subscriptionType: data.subscriptionType
       });
-      if(user){
+      if (user) {
         user.name = data.name ?? user.name
       }
-      
+
       showCustomToast("Dados atualizados com sucesso!", "success");
       router.replace("/user/profile");
     } catch (error) {
@@ -117,6 +127,14 @@ export function EditUser() {
         name="phoneNumber"
         placeholder="Digite o número de telefone"
         error={errors.phoneNumber?.message}
+        register={register}
+      />
+
+      <Input
+        type="password"
+        name="password"
+        placeholder="Digite sua senha"
+        error={errors.password?.message}
         register={register}
       />
 

@@ -18,7 +18,7 @@ const userSchema = z.object({
     .regex(/[A-Z]/, "A senha deve conter ao menos uma letra maiúscula")
     .regex(/[a-z]/, "A senha deve conter ao menos uma letra minúscula")
     .regex(/[0-9]/, "A senha deve conter ao menos um número")
-    .regex(/[\W_]/, "A senha deve conter ao menos um caractere especial"),
+    .regex(/[\W_]/, "A senha deve conter ao menos um caractere especial").optional(),
   phoneNumber: z.string().regex(
     /^(\(?\d{2}\)?\s?\d{4,5}-?\d{4})$/,
     {
@@ -70,7 +70,7 @@ export function NewClient() {
 
 
       });
-      showCustomToast("Paciente realizado com sucesso!", "success");
+      showCustomToast("O seu paciente recebeu a senha de acesso no e-mail cadastrado!", "success");
       router.replace("/dashboard/clients");
     } catch (error) {
       showCustomToast("Erro ao cadastrar paciente", "error");
@@ -81,7 +81,6 @@ export function NewClient() {
     <form className="flex flex-col gap-3 w-full max-w-3xl" onSubmit={handleSubmit(handlerRegister)}>
       <Input type="text" name="name" placeholder="Nome completo" error={errors.name?.message} register={register} />
       <Input type="email" name="email" placeholder="E-mail" error={errors.email?.message} register={register} />
-      <Input type="password" name="password" placeholder="Senha" error={errors.password?.message} register={register} />
       <Input type="text" name="phoneNumber" placeholder="Telefone" error={errors.phoneNumber?.message} register={register} />
       <Input type="text" name="age" placeholder="Idade" error={errors.age?.message} register={register} />
       <Input type="text" name="weight" placeholder="Peso (ex: 82kg)" error={errors.weight?.message} register={register} />

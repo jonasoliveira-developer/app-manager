@@ -2,3 +2,15 @@
 @tailwind components;
 @tailwind utilities;
 
+@keyframes carousel {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+.animate-carousel {
+  animation: carousel 1s linear infinite;
+}
+
+.group:hover .animate-carousel {
+  animation-play-state: paused;
+}

@@ -31,6 +31,15 @@ const userSchema = z.object({
       message: 'Formato inválido. Use (99) 99999-9999 ou variações sem parênteses/espaços',
     }
   ).optional(),
+
+  
+  password: z.string()
+    .min(8, "A senha deve ter no mínimo 8 caracteres")
+    .regex(/[A-Z]/, "A senha deve conter ao menos uma letra maiúscula")
+    .regex(/[a-z]/, "A senha deve conter ao menos uma letra minúscula")
+    .regex(/[0-9]/, "A senha deve conter ao menos um número")
+    .regex(/[\W_]/, "A senha deve conter ao menos um caractere especial").optional(),
+    
   age: z.string().regex(/^\d+$/, {
     message: "Idade deve conter apenas números",
   }).optional(),
@@ -102,11 +111,6 @@ export function EditClient({ params }: { params: { id: string } }) {
         local: data.local,
       });
 
-      if (user) {
-        if(user.accessLevel == "CLIENT") {
-          user.name = data.name ?? user.name
-        }
-      }
 
       showCustomToast("Paciente atualizado com sucesso!", "success");
       router.replace(`/dashboard/clients/profile/${params.id}`);
@@ -119,6 +123,7 @@ export function EditClient({ params }: { params: { id: string } }) {
     <form className="flex flex-col gap-3 w-full max-w-3xl" onSubmit={handleSubmit(handlerRegister)}>
       <Input type="text" name="name" placeholder="Nome completo" error={errors.name?.message} register={register} />
       <Input type="text" name="phoneNumber" placeholder="Telefone" error={errors.phoneNumber?.message} register={register} />
+       <Input type="password" name="password" placeholder="Digite sua senha"error={errors.password?.message} register={register} />
       <Input type="text" name="age" placeholder="Idade" error={errors.age?.message} register={register} />
       <Input type="text" name="weight" placeholder="Peso (ex: 82kg)" error={errors.weight?.message} register={register} />
       <Input type="text" name="height" placeholder="Altura (ex: 1.75m)" error={errors.height?.message} register={register} />

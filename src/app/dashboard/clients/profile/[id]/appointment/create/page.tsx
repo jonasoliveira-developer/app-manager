@@ -2,7 +2,7 @@ import { Container } from "@/components/container";
 import { CarePlanCreate } from "@/components/form/caraPlanCreate";
 import { use } from "react";
 
-export default function AppointmentPage({ params }: { params: Promise<{ id: string }> }) {
+export default function AppointmentCreatePage({ params }: { params: Promise<{ id: string }> }) {
     const { id } = use(params);
     return (
         <Container>
