@@ -9,6 +9,8 @@ import { showCustomToast } from "@/utils/toast"
 import { useAuth } from "@/context/AuthContext";
 import { api } from '@/lib/api';
 import Link from 'next/link';
+import { ImageUploader } from '@/components/ImageUploader';
+import { Header } from '@/components/header';
 
 interface UserType {
   id: string;
@@ -18,6 +20,7 @@ interface UserType {
   accountStatus: string;
   councilRegistrationNumber?: string;
   subscriptionType?: string;
+  imageUrl?: string
 
 }
 
@@ -30,23 +33,22 @@ export default function UserProfile() {
 
   const [dataUser, setDataUser] = useState<UserType | null>(null);
   const [loading, setLoading] = useState(true);
-  useEffect(() => {
-    if (!user) return;
+ useEffect(() => {
+  if (!user?.id) return;
 
-    async function fetchUser() {
-      try {
-        const response = await api.get(`/users/${user?.id}`);
-        setDataUser(response.data);
-      } catch (error) {
-        console.error("Erro ao buscar usuário:", error);
-      } finally {
-        setLoading(false);
-      }
+  async function fetchUser() {
+    try {
+      const response = await api.get(`/users/${user?.id}`);
+      setDataUser(response.data);
+    } catch (error) {
+      console.error("Erro ao buscar usuário:", error);
+    } finally {
+      setLoading(false);
     }
+  }
 
-    fetchUser();
-  }, [user]);
-
+  fetchUser();
+}, [user]);
 
 
   const handleDelete = () => {
@@ -67,7 +69,9 @@ export default function UserProfile() {
 
 
   return (
-    <Container>
+    <>
+    <Header />
+       <Container>
       <div className="flex justify-end items-center mb-2">
         <button
           onClick={handleLogout}
@@ -82,6 +86,13 @@ export default function UserProfile() {
       <div className="h-auto border-2 border-defaultMutedGreen px-10 py-10 rounded">
         <div className="mb-12">
           <h3 className="text-2xl font-semibold mb-2 text-defaultDarkGreen">Informações do Usuario</h3>
+        </div>
+        <div className="rounded-full overflow-hidden" >
+          <ImageUploader
+            userId={user?.id ?? ''}
+            username={user?.name ?? "Usuario"}
+          />
+          
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12 text-gray-700 text-lg">
@@ -111,5 +122,7 @@ export default function UserProfile() {
         </div>
       </div>
     </Container>
+    </>
+   
   );
 }

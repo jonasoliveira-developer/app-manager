@@ -1,42 +1,32 @@
-import { Container } from "@/components/container"
+"use client";
+
+import { Container } from "@/components/container";
 import { TicketItem } from "@/app/dashboard/components/ticket";
 import Link from "next/link";
-import PrivateRoute from "@/components/private";
-
-
+import { FaUserPlus } from "react-icons/fa";
 
 export default function Clients() {
-
-
   return (
     <Container>
-      <PrivateRoute>
-        <main className="">
-          <div className="flex  justify-between">
-            <h1 className="text-3xl font-bold">Pacientes</h1>
-            <Link href="/dashboard/clients/new" className="bg-defaultFlagGreen px-4 py-1 rounded text-defaultWhite ">
+        <main className="w-full px-6 py-8 bg-slate-300 rounded-lg">
+          {/* Cabeçalho */}
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-8 ">
+            <h1 className="text-3xl font-bold text-defaultDarkGreen">Pacientes</h1>
+
+            <Link
+              href="/dashboard/clients/new"
+              className="inline-flex items-center gap-2 bg-defaultFlagGreen hover:bg-defaultGreenHover text-defaultWhite font-semibold px-5 py-2 rounded-lg transition-all duration-200"
+            >
+              <FaUserPlus size={16} />
               Novo paciente
             </Link>
           </div>
-          <div className="overflow-x-auto mt-5">
-            <table className="min-w-full bg-defaultWhite text-sm text-left rounded-lg shadow-md">
-              <thead className="bg-defaultBlack text-defaultWhite">
-                <tr>
-                  <th className="p-2">Nome</th>
-                  <th className="p-2 hidden sm:block">telefone</th>
-                  <th className="p-2">local</th>
-                  <th className="p-2 text-center">Prontuario</th>
-                </tr>
-              </thead>
-              <tbody>
-                <TicketItem />
-              </tbody>
-            </table>
-          </div>
+
+          {/* Lista de pacientes em cards */}
+          <section className="w-full">
+            <TicketItem />
+          </section>
         </main>
-      </PrivateRoute>
     </Container>
   );
-
 }
-

@@ -30,7 +30,7 @@ type FormData = z.infer<typeof userSchema>
 
 
 export function LoginForm() {
-    const { login } = useAuth();
+    const { login, user } = useAuth();
 
 
     const router = useRouter()
@@ -43,9 +43,10 @@ export function LoginForm() {
 
     async function handlerAuthUser(data: FormData) {
         try {
-            await login(data.email, data.password);
+            const loggedUser = await login(data.email, data.password);
             showCustomToast("Seja bem vindes.", "success");
-            router.replace("/dashboard");
+            if(loggedUser?.accessLevel == "ROLE_CLIENT") router.replace(`/dashboard/clients/profile/${loggedUser.id}`);
+            if(loggedUser?.accessLevel == "ROLE_USER") router.replace("/dashboard");
         } catch (error: any) {
             showCustomToast("Ops! Não foi possível fazer login. Verifique seus dados e tente novamente.", "error");
         }

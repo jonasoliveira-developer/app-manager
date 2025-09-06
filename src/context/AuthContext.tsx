@@ -3,19 +3,20 @@ import { createContext, useContext, useState, useEffect, ReactNode } from "react
 import { api } from "@/lib/api";
 
 
-type AccessLevel = "ROOT" | "ADMINISTRATOR" | "USER" | "CLIENT";
+type AccessLevel = "ROLE_ROOT" | "ROLE_ADMINISTRATOR" | "ROLE_USER" | "ROLE_CLIENT";
 
 interface User {
   id: string;
   name: string;
   email: string;
   accessLevel: AccessLevel;
+  imageUrl: string;
 }
 
 interface AuthContextType {
   user: User | null;
   token: string | null;
-  login: (email: string, password: string) => Promise<void>;
+  login: (email: string, password: string) => Promise<User>;
   logout: () => void;
   isAuthenticated: boolean;
 }
@@ -36,8 +37,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       setToken(storedToken);
     }
   }, []);
-
-  async function login(email: string, password: string) {
+  async function login(email: string, password: string): Promise<User> {
     const response = await api.post("/auth/login", { email, password });
     const rawToken = response.data.token.replace("Bearer ", "");
     const userData = parseJwt(rawToken);
@@ -45,6 +45,8 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     localStorage.setItem("_authToken", rawToken);
     setUser(userData);
     setToken(rawToken);
+
+    return userData;
   }
 
   function logout() {
@@ -78,10 +80,12 @@ function parseJwt(token: string): User {
   );
 
   const payload = JSON.parse(jsonPayload);
+
   return {
     id: payload.id,
     name: payload.name,
     email: payload.sub,
     accessLevel: payload.authorities?.[0]?.authority || "USER",
+    imageUrl: payload.imageUrl ?? '', // usa se vier, senão string vazia
   };
 }

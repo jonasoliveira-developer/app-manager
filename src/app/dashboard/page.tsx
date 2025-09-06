@@ -5,9 +5,7 @@ import PrivateRoute from "@/components/private"
 export default function Dashboard() {
     return (
         <Container>
-            <PrivateRoute>
                 <CareCalendar />
-            </PrivateRoute>
         </Container>
     )
 }

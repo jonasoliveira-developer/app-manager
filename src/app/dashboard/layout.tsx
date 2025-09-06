@@ -1,9 +1,14 @@
-import {ReactNode} from "react"
+import { Header } from "@/components/header"
+import { ReactNode } from "react"
 
-export default function DashoardLyault({children}: {children: ReactNode}) {
+export default function DashoardLyault({ children }: { children: ReactNode }) {
     return (
-        <div className="mt-8" >
-            {children}
-        </div>
+        <>
+        <Header />
+            <div className="mt-8" >
+                {children}
+            </div>
+        </>
+
     )
 }

@@ -7,6 +7,7 @@ import { Input } from "@/components/input"
 import { useRouter } from "next/navigation"
 
 import { api } from "@/lib/api"
+import { showCustomToast } from "@/utils/toast"
 
 const userSchema = z.object({
   name: z.string().min(1, "O campo nome é obrigatório"),
@@ -20,7 +21,7 @@ const userSchema = z.object({
     .regex(/[A-Z]/, "A senha deve conter ao menos uma letra maiúscula")
     .regex(/[a-z]/, "A senha deve conter ao menos uma letra minúscula")
     .regex(/[0-9]/, "A senha deve conter ao menos um número")
-    .regex(/[\W_]/, "A senha deve conter ao menos um caractere especial"),
+    .regex(/[\W_]/, "A senha deve conter ao menos um caractere especial").optional(),
 
   phoneNumber: z.string().regex(
     /^(\(?\d{2}\)?\s?\d{4,5}-?\d{4})$/,
@@ -77,13 +78,13 @@ export function NewUser() {
       await api.post("/users/create", {
         name: data.name,
         email: data.email,
-        password: data.password,
         phoneNumber: data.phoneNumber,
         councilRegistrationNumber: data.councilRegistrationNumber,
       })
       router.replace("/login")
+      showCustomToast("Suas senha de acesso foi enviada para o e-mail cadastrado!", "warning")
     } catch (error) {
-      console.error("Erro na requisição:", error);
+     showCustomToast("Desculpe, não conseguimos te cadastrar.Tentente novamente mais tarde!", "info")
     }
 
 
@@ -105,14 +106,6 @@ export function NewUser() {
         name="email"
         placeholder="Digite o e-mail"
         error={errors.email?.message}
-        register={register}
-      />
-
-      <Input
-        type="password"
-        name="password"
-        placeholder="Digite sua senha (Mín. 8 caracteres, 1 maiúscula, 1 minúscula, 1 número e 1 símbolo"
-        error={errors.password?.message}
         register={register}
       />
 
