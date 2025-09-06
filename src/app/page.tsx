@@ -7,9 +7,15 @@ import { useAuth } from "@/context/AuthContext";
 import { useRouter } from "next/navigation";
 
 import { Header } from "@/components/header";
+import { useEffect } from "react";
 
 export default function Home() {
   const router = useRouter();
+  const { logout } = useAuth();
+
+  useEffect(() => {
+    logout(); 
+  }, []);
 
   return (
     <>
