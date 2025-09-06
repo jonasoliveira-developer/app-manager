@@ -14,7 +14,6 @@ import {
 } from "recharts";
 import { FaTrash } from "react-icons/fa";
 import { Container } from "@/components/container";
-import PrivateRoute from "@/components/private";
 
 type StatusPagamento = "FECHADO" | "ABERTO" | "ATRASADO";
 
@@ -97,7 +96,6 @@ export default function Finance() {
 
   return (
     <Container>
-      <PrivateRoute>
         <main className="space-y-8 px-4 py-6">
           {/* Painel financeiro */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
@@ -252,7 +250,6 @@ export default function Finance() {
             )}
           </div>
         </main>
-      </PrivateRoute>
     </Container>
   );
 }
