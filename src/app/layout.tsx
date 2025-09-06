@@ -51,7 +51,6 @@ export default function RootLayout({
         <AuthProvider>
           <Toaster toastOptions={{ duration: 4000 }} position="top-right" />
           {children}
-          <Footer />
         </AuthProvider>
       </body>
     </html>
