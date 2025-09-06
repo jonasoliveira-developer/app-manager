@@ -76,7 +76,7 @@ export function NewUser() {
       router.replace("/login");
       showCustomToast("Sua senha de acesso foi enviada para o e-mail cadastrado!", "warning");
     } catch (error: any) {
-      if (error?.response?.status === 409) {
+      if (error?.response?.status == 409) {
         showCustomToast(`O e-mail ${data.email} já está cadastrado. Tente recuperar a senha ou use outro e-mail.`, "error");
       } else {
         showCustomToast("Desculpe, não conseguimos te cadastrar. Tente novamente mais tarde!", "info");
