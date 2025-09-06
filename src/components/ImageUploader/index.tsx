@@ -45,13 +45,6 @@ export function ImageUploader({ userId, profileImage, username }: ImageUploaderP
     try {
       await api.post('/images/upload', formData);
 
-      
-      const { data: userUpdate } = await api.get(`/users/${userId}`);
-     
-      if (user) {
-            user.imageUrl = userUpdate?.imageProfile
-      }
-
       showCustomToast('Imagem atualizada com sucesso!', 'info');
       setPreview(null);
     } catch (error) {

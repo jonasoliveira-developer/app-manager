@@ -166,7 +166,7 @@ export default function CarePlanDetails() {
         };
 
         if (unique) fetchData();
-    }, [unique]);
+    }, [unique, fetchCarePlan]);
 
 
 
