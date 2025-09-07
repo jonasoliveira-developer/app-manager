@@ -8,9 +8,9 @@ import { useRouter } from "next/navigation";
 
 import { api } from "@/lib/api";
 import { showCustomToast } from "@/utils/toast";
+import { useUserContext } from "@/context/UserContext";
 import { useAuth } from "@/context/AuthContext";
-import { useEffect, useState } from "react";
-
+import { use, useEffect } from "react";
 
 const userSchema = z.object({
   name: z.string().min(1, "O campo nome é obrigatório").optional(),
@@ -18,19 +18,9 @@ const userSchema = z.object({
   phoneNumber: z
     .string()
     .regex(/^(\(?\d{2}\)?\s?\d{4,5}-?\d{4})$/, {
-      message:
-        "Formato inválido. Use (99) 99999-9999 ou variações sem parênteses/espaços",
+      message: "Formato inválido. Use (99) 99999-9999 ou variações sem parênteses/espaços",
     })
     .optional(),
-
-  password: z.string()
-    .min(8, "A senha deve ter no mínimo 8 caracteres")
-    .regex(/[A-Z]/, "A senha deve conter ao menos uma letra maiúscula")
-    .regex(/[a-z]/, "A senha deve conter ao menos uma letra minúscula")
-    .regex(/[0-9]/, "A senha deve conter ao menos um número")
-    .regex(/[\W_]/, "A senha deve conter ao menos um caractere especial").optional(),
-
-
 
   councilRegistrationNumber: z
     .string()
@@ -45,11 +35,9 @@ const userSchema = z.object({
 type FormData = z.infer<typeof userSchema>;
 
 export function EditUser() {
-  const { user } = useAuth();
   const router = useRouter();
-
-
-  const [loading, setLoading] = useState(true);
+  const { userData, fetchUser } = useUserContext();
+  const {user} = useAuth()
 
   const {
     register,
@@ -62,41 +50,26 @@ export function EditUser() {
   });
 
   useEffect(() => {
-    if (!user) return;
-
-    async function fetchUser() {
-      try {
-        const response = await api.get(`/users/${user?.id}`);
-
-        reset({
-          name: response.data.name,
-          phoneNumber: response.data.phoneNumber,
-          councilRegistrationNumber: response.data.councilRegistrationNumber,
-          subscriptionType: response.data.subscriptionType,
-        });
-
-      } catch (error) {
-        showCustomToast("Erro ao carregar dados do usuário", "error");
-      } finally {
-        setLoading(false);
-      }
+    if (userData) {
+      reset({
+        name: userData.name,
+        phoneNumber: userData.phoneNumber,
+        councilRegistrationNumber: userData.councilRegistrationNumber,
+        subscriptionType: userData.subscriptionType,
+      });
     }
-
-    fetchUser();
-  }, [user, reset]);
+  }, [userData, reset]);
 
   async function handlerRegisterCustomer(data: FormData) {
     try {
-      await api.put(`/users/${user?.id}`, {
+      await api.put(`/users/${userData?.id}`, {
         name: data.name,
         phoneNumber: data.phoneNumber,
-        password: data.password,
         councilRegistrationNumber: data.councilRegistrationNumber,
-        subscriptionType: data.subscriptionType
+        subscriptionType: data.subscriptionType,
       });
-      if (user) {
-        user.name = data.name ?? user.name
-      }
+      if (!user?.id) return;
+      await fetchUser(user?.id); // Atualiza o contexto com os dados mais recentes
 
       showCustomToast("Dados atualizados com sucesso!", "success");
       router.replace("/user/profile");
@@ -105,7 +78,7 @@ export function EditUser() {
     }
   }
 
-  if (loading) {
+  if (!userData) {
     return <p className="text-gray-500">Carregando dados do usuário...</p>;
   }
 
@@ -131,14 +104,6 @@ export function EditUser() {
       />
 
       <Input
-        type="password"
-        name="password"
-        placeholder="Digite sua senha"
-        error={errors.password?.message}
-        register={register}
-      />
-
-      <Input
         type="text"
         name="councilRegistrationNumber"
         placeholder="Digite o número do registro no conselho"
@@ -149,7 +114,7 @@ export function EditUser() {
       <Input
         type="text"
         name="subscriptionType"
-        placeholder="Digite o número do registro no conselho"
+        placeholder="Tipo de assinatura (BASIC, PREMIUM, FREE)"
         error={errors.subscriptionType?.message}
         register={register}
       />

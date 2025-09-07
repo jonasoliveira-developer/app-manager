@@ -86,6 +86,6 @@ function parseJwt(token: string): User {
     name: payload.name,
     email: payload.sub,
     accessLevel: payload.authorities?.[0]?.authority || "USER",
-    imageUrl: payload.imageUrl ?? '', // usa se vier, senão string vazia
+    imageUrl: payload.imageUrl ?? '', 
   };
 }
