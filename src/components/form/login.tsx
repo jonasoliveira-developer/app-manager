@@ -8,6 +8,8 @@ import { Input } from "@/components/input";
 import { useRouter } from "next/navigation";
 import { showCustomToast } from "@/utils/toast";
 import { useAuth } from "@/context/AuthContext";
+import { useUserContext } from "@/context/UserContext";
+
 
 const userSchema = z.object({
     email: z
@@ -27,6 +29,7 @@ const userSchema = z.object({
 type FormData = z.infer<typeof userSchema>;
 
 export function LoginForm() {
+    const { fetchUser } = useUserContext();
     const { login } = useAuth();
     const router = useRouter();
 
@@ -50,24 +53,29 @@ export function LoginForm() {
         { label: "Ao menos um caractere especial", test: (val: string) => /[\W_]/.test(val) },
     ];
 
-    async function handlerAuthUser(data: FormData) {
-        setIsLoading(true);
-        try {
-            const loggedUser = await login(data.email, data.password);
-            showCustomToast("Seja bem vindes.", "success");
+async function handlerAuthUser(data: FormData) {
+  setIsLoading(true);
+  try {
+    const loggedUser = await login(data.email, data.password);
+    showCustomToast("Aguarde enquanto preparamos seu ambiente.", "info");
 
-            if (loggedUser?.accessLevel === "ROLE_CLIENT") {
-                router.replace(`/dashboard/clients/profile/${loggedUser.id}`);
-            }
-            if (loggedUser?.accessLevel === "ROLE_USER") {
-                router.replace("/dashboard");
-            }
-        } catch (error: any) {
-            showCustomToast("Ops! Não foi possível fazer login. Verifique seus dados e tente novamente.", "error");
-        } finally {
-            setIsLoading(false);
-        }
+    // Preenche o contexto com os dados completos do usuário
+    await fetchUser(loggedUser.id); 
+
+    if (loggedUser?.accessLevel === "ROLE_USER") {
+      router.replace("/dashboard");
     }
+     else if (loggedUser?.accessLevel === "ROLE_CLIENT") {
+      router.replace(`/dashboard/clients/profile/${loggedUser.id}`);
+    }
+       showCustomToast("Tudo pronto, seja bem vindo(a)!", "success");
+  } catch (error) {
+    showCustomToast("Erro ao autenticar. Verifique suas credenciais.", "error");
+  } finally {
+    setIsLoading(false);
+  }
+}
+
 
     return (
         <form className="flex flex-col w-full max-w-2xl" onSubmit={handleSubmit(handlerAuthUser)}>

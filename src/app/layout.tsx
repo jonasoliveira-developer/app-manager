@@ -6,6 +6,7 @@ import { Header } from "@/components/header";
 import { AuthProvider } from "@/context/AuthContext";
 import { Toaster } from "react-hot-toast";
 import Footer from "@/components/footer";
+import { UserProvider } from "@/context/UserContext";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -37,8 +38,8 @@ export default function RootLayout({
     <html lang="pt-BR">
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased bg-slate-50`}>
         <script
-              dangerouslySetInnerHTML={{
-                    __html: `
+          dangerouslySetInnerHTML={{
+            __html: `
               if ('serviceWorker' in navigator) {
                 window.addEventListener('load', () => {
                   navigator.serviceWorker.register('/sw.js');
@@ -47,10 +48,12 @@ export default function RootLayout({
             `,
           }}
         ></script>
-        
+
         <AuthProvider>
-          <Toaster toastOptions={{ duration: 4000 }} position="top-right" />
-          {children}
+          <UserProvider>
+            <Toaster toastOptions={{ duration: 4000 }} position="top-right" />
+            {children}
+          </UserProvider>
         </AuthProvider>
       </body>
     </html>

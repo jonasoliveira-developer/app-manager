@@ -28,6 +28,11 @@
       "src": "/favicon.png",
       "sizes": "32x32",
       "type": "image/x-icon"
+    },
+        {
+      "src": "/favicon.ico",
+      "sizes": "32x32",
+      "type": "image/x-icon"
     }
   ]
 }
