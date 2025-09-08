@@ -10,7 +10,7 @@ export default function LoginPage() {
         <>
             <Container>
                 <main
-                    className="w-full flex flex-col items-center justify-center px-4"
+                    className="w-full flex flex-col items-center justify-center"
                     style={{ height: "calc(100vh - 8.5rem)" }}
                 >
                     <div className="w-full max-w-md bg-white border border-gray-200 rounded-lg shadow-lg shadow-gray-300/40 backdrop-blur-sm p-6">

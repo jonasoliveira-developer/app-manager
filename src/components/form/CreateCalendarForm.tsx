@@ -78,13 +78,19 @@ export function CreateCalendarForm({ carePlanId, onSuccess }: Props) {
                 )}
             </div>
 
-            <Input
-                type="time"
-                name="sessionTime"
-                placeholder="Horário da sessão"
-                error={errors.sessionTime?.message}
-                register={register}
-            />
+            <div className="flex flex-col gap-2">
+                <label htmlFor="sessionTime" className="text-sm font-medium text-gray-700">
+                    Horário da sessão
+                </label>
+                <Input
+                    type="time"
+                    name="sessionTime"
+                    placeholder="Horário da sessão"
+                    error={errors.sessionTime?.message}
+                    register={register}
+                />
+            </div>
+
 
             <ColorPicker
                 value={watch("color")}

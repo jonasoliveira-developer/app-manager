@@ -1,6 +1,7 @@
 "use client";
 
-import { createContext, useContext, useState } from "react";
+import { createContext, useContext, useState, useEffect } from "react";
+import Cookies from "js-cookie";
 import { api } from "@/lib/api";
 
 export interface UserType {
@@ -15,9 +16,9 @@ export interface UserType {
 }
 
 interface UserContextType {
-    userData: UserType | null; // usuário já carregado
+    userData: UserType | null;
     setUserData: (user: UserType | null) => void;
-    fetchUser: (id: string) => Promise<void>; // função para atualizar via GET
+    fetchUser: (id: string) => Promise<void>;
 }
 
 const UserContext = createContext<UserContextType>({} as UserContextType);
@@ -29,10 +30,23 @@ export function UserProvider({ children }: { children: React.ReactNode }) {
         try {
             const response = await api.get(`/users/${id}`);
             setUserData(response.data);
+            Cookies.set("userData", JSON.stringify(response.data), { expires: 7 });
         } catch (error) {
             console.error("Erro ao buscar usuário:", error);
         }
     }
+
+    useEffect(() => {
+        const cookieData = Cookies.get("userData");
+        if (cookieData) {
+            try {
+                const parsed = JSON.parse(cookieData);
+                setUserData(parsed);
+            } catch (err) {
+                console.error("Erro ao ler cookie do usuário:", err);
+            }
+        }
+    }, []);
 
     return (
         <UserContext.Provider value={{ userData, setUserData, fetchUser }}>
