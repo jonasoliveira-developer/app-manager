@@ -10,6 +10,9 @@ import { showCustomToast } from "@/utils/toast";
 import { useAuth } from "@/context/AuthContext";
 import { useUserContext } from "@/context/UserContext";
 
+import Cookies from "js-cookie";
+
+
 
 const userSchema = z.object({
     email: z
@@ -60,7 +63,9 @@ async function handlerAuthUser(data: FormData) {
     showCustomToast("Aguarde enquanto preparamos seu ambiente.", "info");
 
     // Preenche o contexto com os dados completos do usuário
-    await fetchUser(loggedUser.id); 
+    const userFetched = await fetchUser(loggedUser.id); 
+    Cookies.set("userData", JSON.stringify(userFetched), { expires: 7 });
+
 
     if (loggedUser?.accessLevel === "ROLE_USER") {
       router.replace("/dashboard");

@@ -41,7 +41,7 @@ export default function PackegeList({ params }: { params: { id: string } }) {
         async function fetchCarePlans() {
             try {
                 const response = await api.get("/care-plans", {
-                    params: { id: user?.id },
+                    params: { id:params.id },
                 });
 
                 setCarePlans(response.data.content);

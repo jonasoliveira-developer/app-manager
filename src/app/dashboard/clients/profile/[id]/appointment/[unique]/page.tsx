@@ -158,15 +158,43 @@ export default function CarePlanDetails() {
     };
 
 
-    useEffect(() => {
+   useEffect(() => {
+  let isMounted = true;
 
-        const fetchData = async () => {
-            const clientId = await fetchCarePlan();
-            if (clientId) await fetchReports(clientId);
-        };
+  async function fetchData() {
+    try {
+      const res = await api.get(`/care-plans/${unique}`);
+      const plan = res.data;
 
-        if (unique) fetchData();
-    }, [unique, fetchCarePlan]);
+      if (!isMounted) return;
+
+      setCarePlan(plan);
+      setSchedules(plan.schedule);
+
+      if (plan.paymentId) {
+        const paymentRes = await api.get(`/payments/${plan.paymentId}`);
+        if (isMounted) setPayment(paymentRes.data);
+      }
+
+      if (plan.clientId) {
+        const reportsRes = await api.get("/reports", {
+          params: { clientId: plan.clientId },
+        });
+        if (isMounted) setReports(reportsRes.data.content || []);
+      }
+    } catch (error) {
+      console.error("Erro ao carregar dados do plano:", error);
+    } finally {
+      if (isMounted) setLoading(false);
+    }
+  }
+
+  if (unique) fetchData();
+
+  return () => {
+    isMounted = false;
+  };
+}, [unique]);
 
 
 

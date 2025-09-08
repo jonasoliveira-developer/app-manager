@@ -51,7 +51,7 @@ export function TicketItem() {
         <p className="text-gray-600 mb-6 max-w-md">
           Comece agora a organizar seus atendimentos. Cadastre seu primeiro paciente e aproveite todos os recursos da plataforma.
         </p>
-        <Link href="/dashboard/clients/create">
+        <Link href="/dashboard/clients/new">
           <button className="bg-defaultGreen text-white px-6 py-2 rounded-lg hover:bg-defaultDarkGreen transition">
             Cadastrar paciente
           </button>

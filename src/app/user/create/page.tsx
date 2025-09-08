@@ -1,10 +1,11 @@
 import Link from "next/link";
 import { NewUser } from "@/components/form/newUser";
 import Footer from "@/components/footer";
+import { Container } from "@/components/container";
 
 export default function CreateUser() {
   return (
-    <>
+    <Container>
       <main
         className="w-full flex flex-col items-center justify-center"
         style={{ height: "calc(100vh - 8.5rem)" }}
@@ -24,7 +25,6 @@ export default function CreateUser() {
         </div>
          <Footer />
       </main>
-     
-    </>
+     </Container >
   );
 }
