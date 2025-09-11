@@ -5,19 +5,13 @@ import { api } from '@/lib/api';
 import { showCustomToast } from '@/utils/toast';
 import Image from 'next/image';
 import { InitialsAvatar } from '@/utils/getInitialsName';
-import { useAuth } from '@/context/AuthContext';
+import { useUserContext } from '@/context/UserContext';
 
-interface ImageUploaderProps {
-  userId: string;
-  profileImage?: string;
-  username: string;
-}
-
-export function ImageUploader({ userId, profileImage, username }: ImageUploaderProps) {
+export function ImageUploader() {
   const inputRef = useRef<HTMLInputElement>(null);
   const [preview, setPreview] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
-  const { user } = useAuth(); 
+  const { userData, setUserData } = useUserContext();
 
   const handleClick = () => {
     inputRef.current?.click();
@@ -33,30 +27,35 @@ export function ImageUploader({ userId, profileImage, username }: ImageUploaderP
 
   const handleUpload = async () => {
     const file = inputRef.current?.files?.[0];
-    if (!file) return;
+    if (!file || !userData?.id) return;
 
     setLoading(true);
 
     const formData = new FormData();
     formData.append('image', file);
     formData.append('type', 'user');
-    formData.append('id', userId);
+    formData.append('id', userData.id);
 
     try {
-      await api.post('/images/upload', formData);
+      const response = await api.post('/images/upload', formData);
+      const imageUrl = response.data.url;
 
       showCustomToast('Imagem atualizada com sucesso!', 'info');
       setPreview(null);
+
+      // Atualiza o contexto com a nova imagem
+      const updatedUser = { ...userData, imageUrl };
+      setUserData(updatedUser);
+      localStorage.setItem('userData', JSON.stringify(updatedUser));
     } catch (error) {
-      console.error('Erro ao enviar imagem:', error);
       showCustomToast('Erro ao enviar imagem.', 'error');
     } finally {
       setLoading(false);
     }
   };
 
-  const imageSrc = preview || profileImage;
-  const hasImage = typeof imageSrc === 'string' && imageSrc.trim() !== '';
+const imageSrc = preview || userData?.imageUrl || null;
+const hasImage = typeof imageSrc === 'string' && imageSrc.trim() !== '';
 
   return (
     <div className="flex items-center gap-4">
@@ -73,9 +72,10 @@ export function ImageUploader({ userId, profileImage, username }: ImageUploaderP
             height={60}
             className="rounded-full object-cover"
             style={{ objectFit: 'cover' }}
+            unoptimized
           />
         ) : (
-          <InitialsAvatar name={username} className="w-full h-full" />
+          <InitialsAvatar name={userData?.name ?? 'Usuário'} className="w-full h-full" />
         )}
 
         <input
@@ -91,11 +91,10 @@ export function ImageUploader({ userId, profileImage, username }: ImageUploaderP
       <button
         onClick={handleUpload}
         disabled={!preview || loading}
-        className={`px-2 py-1 text-sm rounded transition-colors ${
-          preview && !loading
+        className={`px-2 py-1 text-sm rounded transition-colors ${preview && !loading
             ? 'bg-defaultGreen text-white hover:bg-defaultGreenHover'
             : 'bg-gray-300 text-gray-500 cursor-not-allowed'
-        }`}
+          }`}
       >
         {loading ? 'Salvando...' : 'Salvar imagem'}
       </button>

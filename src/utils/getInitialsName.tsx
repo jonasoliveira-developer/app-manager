@@ -6,13 +6,10 @@ interface InitialsAvatarProps {
 }
 
 export function InitialsAvatar({ name, className = '' }: InitialsAvatarProps) {
-
   const getInitials = (fullName: string): string => {
-    return fullName
-      .split(' ')
-      .map((n) => n[0])
-      .join('')
-      .toUpperCase();
+    const parts = fullName.trim().split(/\s+/);
+    if (parts.length === 1) return parts[0][0].toUpperCase();
+    return (parts[0][0] + parts[parts.length - 1][0]).toUpperCase();
   };
 
   const initials = getInitials(name);

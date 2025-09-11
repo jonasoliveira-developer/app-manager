@@ -103,10 +103,9 @@ export function CareCalendar() {
     .flat();
 
   const CustomEvent = ({ event }: { event: any }) => (
-    <div className="p-[2px] leading-tight text-[11px] text-white flex justify-between items-center ">
+    <div className="p-[2px] leading-tight text-[11px] text-white flex flex-col justify-between items-start ">
         <div className="font-semibold">{event.title}</div>
         <div className="text-[10px]">{event.time}</div>
-      <div>{event.subtitle}</div>
     </div>
   );
 

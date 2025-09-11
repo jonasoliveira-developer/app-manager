@@ -43,7 +43,7 @@ export function TicketItem() {
 
   if (!loading && (!clients || clients.length === 0)) {
     return (
-      <div className="w-full flex flex-col items-center justify-center py-12 text-center bg-defaultSnow rounded-xl shadow-sm">
+      <div className="w-full flex flex-col items-center justify-center py-12 text-center bg-defaultSnow rounded-xl shadow-sm ">
         <FaUserPlus size={48} className="text-defaultGreen mb-4" />
         <h2 className="text-2xl font-semibold text-gray-800 mb-2">
           Nenhum paciente cadastrado
@@ -80,16 +80,19 @@ export function TicketItem() {
 
           {/* Informações do paciente */}
           <div className="flex flex-col md:flex-row md:items-center md:gap-6 w-full justify-between pr-20">
-            <h3 className="text-lg font-semibold text-defaultDarkGreen">{client.name}</h3>
-            {client.email && (
-              <p className="text-sm text-gray-600">✉️ {client.email}</p>
-            )}
-            {client.phoneNumber && (
-              <p className="text-sm text-gray-600">📞 {client.phoneNumber}</p>
-            )}
-            {client.local && (
-              <p className="text-sm text-gray-600">📍 {client.local}</p>
-            )}
+            <h3 className="text-lg font-semibold text-defaultDarkGreen w-1/4">{client.name}</h3>
+
+            <p className="text-sm text-gray-600 w-1/4">
+              {client.email ? `✉️ ${client.email}` : <span className="invisible">placeholder</span>}
+            </p>
+
+            <p className="text-sm text-gray-600 w-1/4">
+              {client.phoneNumber ? `📞 ${client.phoneNumber}` : <span className="invisible">placeholder</span>}
+            </p>
+
+            <p className="text-sm text-gray-600 w-1/4">
+              {client.local ? `📍 ${client.local}` : <span className="invisible">placeholder</span>}
+            </p>
           </div>
         </div>
       ))}

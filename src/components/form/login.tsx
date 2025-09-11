@@ -56,30 +56,29 @@ export function LoginForm() {
         { label: "Ao menos um caractere especial", test: (val: string) => /[\W_]/.test(val) },
     ];
 
-async function handlerAuthUser(data: FormData) {
-  setIsLoading(true);
-  try {
-    const loggedUser = await login(data.email, data.password);
-    showCustomToast("Aguarde enquanto preparamos seu ambiente.", "info");
+    async function handlerAuthUser(data: FormData) {
+        setIsLoading(true);
+        try {
+            const loggedUser = await login(data.email, data.password);
+            showCustomToast("Aguarde enquanto preparamos seu ambiente.", "info");
 
-    // Preenche o contexto com os dados completos do usuário
-    const userFetched = await fetchUser(loggedUser.id); 
-    Cookies.set("userData", JSON.stringify(userFetched), { expires: 7 });
+            
 
 
-    if (loggedUser?.accessLevel === "ROLE_USER") {
-      router.replace("/dashboard");
+            if (loggedUser?.accessLevel === "ROLE_USER") {
+                void fetchUser(loggedUser.id);
+                router.replace("/dashboard");
+            }
+            else if (loggedUser?.accessLevel === "ROLE_CLIENT") {
+                router.replace(`/dashboard/clients/profile/${loggedUser.id}`);
+            }
+            showCustomToast("Tudo pronto, seja bem vindo(a)!", "success");
+        } catch (error) {
+            showCustomToast("Erro ao autenticar. Verifique suas credenciais.", "error");
+        } finally {
+            setIsLoading(false);
+        }
     }
-     else if (loggedUser?.accessLevel === "ROLE_CLIENT") {
-      router.replace(`/dashboard/clients/profile/${loggedUser.id}`);
-    }
-       showCustomToast("Tudo pronto, seja bem vindo(a)!", "success");
-  } catch (error) {
-    showCustomToast("Erro ao autenticar. Verifique suas credenciais.", "error");
-  } finally {
-    setIsLoading(false);
-  }
-}
 
 
     return (

@@ -16,7 +16,11 @@ import { showCustomToast } from "@/utils/toast";
 import { CreateCalendarModal } from "@/app/dashboard/clients/profile/components/CreateCalendarModal";
 import { formatDateToBR } from "@/utils/dateFprmate";
 import { CreatePaymentModal } from "@/app/dashboard/clients/profile/components/CreatePaymentModal";
+import {ReceiptModal  } from "@/app/dashboard/clients/profile/components/ReceiptModal"
 import { formatCurrencyBRL } from "@/utils/formatCurrencyBRL"
+import { SlArrowLeft } from "react-icons/sl";
+import { useUserContext } from "@/context/UserContext";
+
 
 interface ScheduleItem {
     id: string;
@@ -56,9 +60,11 @@ interface CarePlan {
 }
 
 export default function CarePlanDetails() {
-    const { unique } = useParams();
+    const { unique, id } = useParams();
     const pathname = usePathname();
     const router = useRouter();
+
+    const { userData } = useUserContext();
 
     const [carePlan, setCarePlan] = useState<CarePlan | null>(null);
     const [payment, setPayment] = useState<Payment | null>(null);
@@ -67,6 +73,8 @@ export default function CarePlanDetails() {
     const [loading, setLoading] = useState(true);
     const [showCalendarModal, setShowCalendarModal] = useState(false);
     const [showPaymentModal, setShowPaymentModal] = useState(false);
+    const [showReceiptModal, setShowReceiptModal] = useState(false);
+
 
 
     function handleOpenCalendar() {
@@ -158,43 +166,47 @@ export default function CarePlanDetails() {
     };
 
 
-   useEffect(() => {
-  let isMounted = true;
+    useEffect(() => {
+        let isMounted = true;
 
-  async function fetchData() {
-    try {
-      const res = await api.get(`/care-plans/${unique}`);
-      const plan = res.data;
+        async function fetchData() {
+            try {
+                const res = await api.get(`/care-plans/${unique}`);
+                const plan = res.data;
 
-      if (!isMounted) return;
+                if (!isMounted) return;
 
-      setCarePlan(plan);
-      setSchedules(plan.schedule);
+                setCarePlan(plan);
+                setSchedules(plan.schedule);
 
-      if (plan.paymentId) {
-        const paymentRes = await api.get(`/payments/${plan.paymentId}`);
-        if (isMounted) setPayment(paymentRes.data);
-      }
+                if (plan?.paymentId != null && plan.paymentId !== '') {
+                    try {
+                        const paymentRes = await api.get(`/payments/${plan.paymentId}`);
+                        if (isMounted) setPayment(paymentRes.data);
+                    } catch (error) {
 
-      if (plan.clientId) {
-        const reportsRes = await api.get("/reports", {
-          params: { clientId: plan.clientId },
-        });
-        if (isMounted) setReports(reportsRes.data.content || []);
-      }
-    } catch (error) {
-      console.error("Erro ao carregar dados do plano:", error);
-    } finally {
-      if (isMounted) setLoading(false);
-    }
-  }
+                    }
+                }
 
-  if (unique) fetchData();
+                if (plan.clientId) {
+                    const reportsRes = await api.get("/reports", {
+                        params: { clientId: plan.clientId },
+                    });
+                    if (isMounted) setReports(reportsRes.data.content || []);
+                }
+            } catch (error) {
+                console.error("Erro ao carregar dados do plano:", error);
+            } finally {
+                if (isMounted) setLoading(false);
+            }
+        }
 
-  return () => {
-    isMounted = false;
-  };
-}, [unique]);
+        if (unique) fetchData();
+
+        return () => {
+            isMounted = false;
+        };
+    }, [unique]);
 
 
 
@@ -241,9 +253,14 @@ export default function CarePlanDetails() {
     return (
         <div className="max-w-6xl w-full mx-auto p-8 bg-white rounded-lg border border-defaultMutedGreen">
             {/* Título */}
-            <h1 className="text-3xl font-bold text-defaultDarkGreen mb-6 text-center">
-                {carePlan.title}
-            </h1>
+            <div className="w-full  flex items-center justify-between mb-5">
+                <Link href={`/dashboard/clients/profile/${id}`}>
+                    <SlArrowLeft className="hover:cursor-pointer text-defaultGreen" />
+                </Link>
+                <div className="w-full mx-auto">
+                    <h1 className="text-2xl md:text-3xl font-medium mb-5 text-center">{carePlan.title}</h1>
+                </div>
+            </div>
 
             {/* Datas */}
             <div className="flex flex-col md:flex-row gap-4 text-gray-700 mb-6">
@@ -260,12 +277,12 @@ export default function CarePlanDetails() {
 
             {/* Pagamento */}
             <div
-                className={`mb-8 ${payment?.paymentStatus === "OPEN"
+                className={`mb-8 border border-defaultDarkGreen p-4 w-fit rounded ${payment?.paymentStatus === "OPEN"
                     ? "text-red-600"
                     : payment?.paymentStatus === "CLOSED"
                         ? "text-blue-600"
                         : "text-gray-700"
-                    } border border-defaultDarkGreen p-2 w-fit rounded`}
+                    }`}
             >
                 <p>
                     <strong className="text-gray-700">Valor do pagamento:</strong>{" "}
@@ -274,34 +291,52 @@ export default function CarePlanDetails() {
 
                 {/* Ações baseadas no status e valor */}
                 {payment?.amount && payment.amount > 0 && (
-                    <div className="mt-3 flex gap-4">
+                    <div className="mt-4 flex flex-wrap gap-4">
                         {payment.paymentStatus === "OPEN" ? (
                             <>
                                 <button
                                     onClick={() => handleClosePayment("CLOSED")}
-                                    className="p-1 bg-blue-400 hover:bg-blue-600 text-white text-sm rounded transition"
+                                    className="px-3 py-1 bg-blue-500 hover:bg-blue-700 text-white text-sm rounded transition"
                                 >
                                     Encerrar
                                 </button>
 
                                 <button
                                     onClick={handleDeletePayment}
-                                    className="p-1 bg-red-400 hover:bg-red-600 text-white text-sm rounded transition"
+                                    className="px-3 py-1 bg-red-500 hover:bg-red-700 text-white text-sm rounded transition"
                                 >
                                     Excluir
                                 </button>
                             </>
                         ) : (
-                            <button
-                                onClick={() => handleClosePayment("OPEN")}
-                                className="p-1 bg-green-500 hover:bg-green-700 text-white text-sm rounded transition"
-                            >
-                                Reabrir pagamento
-                            </button>
+                            <>
+                                <button
+                                    onClick={() => handleClosePayment("OPEN")}
+                                    className="px-3 py-1 bg-green-500 hover:bg-green-700 text-white text-sm rounded transition"
+                                >
+                                    Reabrir pagamento
+                                </button>
+
+                                <button
+                                    onClick={() => setShowReceiptModal(true)}
+                                    className="px-3 py-1 bg-gray-200 hover:bg-gray-300 text-gray-800 text-sm rounded transition flex items-center gap-2"
+                                >
+                                    🧾 Recibo
+                                </button>
+                            </>
                         )}
                     </div>
                 )}
             </div>
+              <ReceiptModal
+                isOpen={showReceiptModal}
+                onClose={() => setShowReceiptModal(false)}
+                userName={userData?.name ?? "Usuário"}
+                id={payment?.clientId ?? "-"}
+                amount={payment?.amount ?? 0}
+                carePlanId={carePlan.id ?? "-"}
+                formatCurrencyBRL={formatCurrencyBRL}
+            />
 
             {/* Agenda + Evoluções */}
             <div className="flex flex-col md:flex-row gap-6">
@@ -417,6 +452,8 @@ export default function CarePlanDetails() {
                 />
             )}
 
+
         </div>
     );
+
 }

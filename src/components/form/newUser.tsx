@@ -20,13 +20,14 @@ export const userSchema = z.object({
     {
       message: "Formato inválido. Use (99) 99999-9999 ou variações sem parênteses/espaços",
     }
-  ).optional(),
+  ),
+
   councilRegistrationNumber: z.string().regex(
-    /^\d+$/,
-    {
-      message: "Formato inválido. Deve conter apenas números (ex: 123456)",
-    }
-  ).optional(),
+  /^\d+(F|TO)$/,
+  {
+    message: "Formato inválido. Deve conter apenas números seguidos de 'F' ou 'TO' (ex: 123456F ou 7890TO)",
+  }
+)
 });
 
 
