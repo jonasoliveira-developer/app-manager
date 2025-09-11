@@ -6,7 +6,7 @@ import { FaUserPlus } from "react-icons/fa";
 export default function Clients() {
   return (
     <Container>
-        <main className="w-full px-6 py-8 bg-slate-300 rounded-lg">
+        <main className="w-full px-6 py-8 bg-slate-200 rounded-lg">
           {/* Cabeçalho */}
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-8 ">
             <h1 className="text-3xl font-bold text-defaultDarkGreen">Pacientes</h1>

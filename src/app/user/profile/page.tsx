@@ -46,7 +46,7 @@ export default function UserProfile() {
         {/* Área principal do perfil */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-10 border-2 border-defaultMutedGreen px-10 py-10 rounded">
           {/* Coluna da imagem e nome */}
-          <div className="flex flex-col items-center gap-4">
+          <div className="flex flex-col items-center gap-4 border-2 border-defaultGreen p-4 rounded">
             <div className="w-40 h-40 rounded-full overflow-hidden border bg-gray-100 flex items-center justify-center">
               {userData?.imageUrl ? (
                 <img
@@ -62,10 +62,6 @@ export default function UserProfile() {
             <h2 className="text-xl font-semibold text-defaultDarkGreen">
               {userData?.name || "Nome do Usuário"}
             </h2>
-
-            <p className="text-sm text-gray-600 text-center px-4">
-              “Sou apaixonado por tecnologia, café e resolver problemas com código.”
-            </p>
 
             
            {/* Botões de ação */}
@@ -96,8 +92,8 @@ export default function UserProfile() {
               <p><strong>Telefone:</strong> {userData?.phoneNumber}</p>
               <p><strong>Registro no Conselho:</strong> {userData?.councilRegistrationNumber}</p>
               <p><strong>Plano de Assinatura:</strong> {userData?.subscriptionType}</p>
-              <p><strong>Biografia:</strong> Desenvolvedor fullstack com 5 anos de experiência em projetos web.</p>
-              <p><strong>Sobre mim:</strong> Gosto de aprender coisas novas, trabalhar em equipe e criar soluções que impactam positivamente a vida das pessoas.</p>
+              <p><strong>Biografia:</strong>{userData?.biography}</p>
+              <p><strong>Sobre mim:</strong>{userData?.aboutMe}</p>
             </div>
 
            

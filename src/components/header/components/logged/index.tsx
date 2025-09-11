@@ -7,6 +7,9 @@ import { useEffect } from 'react';
 import { useAuth } from '@/context/AuthContext';
 import { useUserContext } from '@/context/UserContext';
 import { InitialsAvatar } from '@/utils/getInitialsName';
+import { FaTools } from 'react-icons/fa';
+
+<FaTools size={28} color="#f59e0b" title="Em obra" />
 
 export function ImageAndNameUserWithNavLink() {
   const pathname = usePathname();
@@ -22,7 +25,7 @@ export function ImageAndNameUserWithNavLink() {
   const navLinks = [
     { name: 'Agenda', href: '/dashboard', exact: true },
     { name: 'Pacientes', href: '/dashboard/clients' },
-    { name: 'Financeiro (breve)', href: '/dashboard/finance', disabled: true },
+    { name: `Finança(breve)`, href: '/dashboard/finance', disabled: true },
   ];
 
   if (!isAuthenticated || !userData) return null;

@@ -65,7 +65,7 @@ export function TicketItem() {
       {clients?.map((client) => (
         <div
           key={client.id}
-          className="relative w-full bg-defaultSnow rounded p-4 flex flex-col md:flex-row md:justify-between md:items-center gap-2"
+          className="relative w-full bg-slate-50 rounded p-4 flex flex-col md:flex-row md:justify-between md:items-center gap-2"
         >
           {/* Botão fixo no canto superior direito */}
           <div className="absolute top-4 right-4">
@@ -80,22 +80,25 @@ export function TicketItem() {
 
           {/* Informações do paciente */}
           <div className="flex flex-col md:flex-row md:items-center md:gap-6 w-full justify-between pr-20">
-            <h3 className="text-lg font-semibold text-defaultDarkGreen w-1/4">{client.name}</h3>
+            <h3 className="text-lg font-semibold text-defaultDarkGreen w-full md:w-1/4">
+              {client.name}
+            </h3>
 
-            <p className="text-sm text-gray-600 w-1/4">
+            <p className="text-sm text-gray-600 w-full md:w-1/4">
               {client.email ? `✉️ ${client.email}` : <span className="invisible">placeholder</span>}
             </p>
 
-            <p className="text-sm text-gray-600 w-1/4">
+            <p className="text-sm text-gray-600 w-full md:w-1/4">
               {client.phoneNumber ? `📞 ${client.phoneNumber}` : <span className="invisible">placeholder</span>}
             </p>
 
-            <p className="text-sm text-gray-600 w-1/4">
+            <p className="text-sm text-gray-600 w-full md:w-1/4">
               {client.local ? `📍 ${client.local}` : <span className="invisible">placeholder</span>}
             </p>
           </div>
         </div>
       ))}
     </div>
+
   );
 }

@@ -23,18 +23,18 @@ const userSchema = z.object({
     })
     .optional(),
 
-  councilRegistrationNumber: z
-    .string()
-    .regex(/^\d+$/, {
-      message: "Formato inválido. Deve conter apenas números (ex: 123456)",
-    })
-    .optional(),
+  councilRegistrationNumber: z.string().regex(
+  /^\d+(F|TO)$/,
+  {
+    message: "Formato inválido. Deve conter apenas números seguidos de 'F' ou 'TO' (ex: 123456F ou 7890TO)",
+  }
+).optional(),
 
   subscriptionType: z.enum(["BASIC", "PREMIUM", "FREE"]).optional(),
 
-  biography: z.string().max(500, "Máximo de 500 caracteres").optional(),
+  biography: z.string().optional(),
 
-  aboutMe: z.string().max(1000, "Máximo de 1000 caracteres").optional(),
+  aboutMe: z.string().optional(),
 });
 
 type FormData = z.infer<typeof userSchema>;
