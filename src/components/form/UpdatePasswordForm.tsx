@@ -27,6 +27,7 @@ export function UpdatePasswordForm() {
     const {
         register,
         handleSubmit,
+        reset,
         watch,
         formState: { errors },
     } = useForm<FormData>({
@@ -48,12 +49,14 @@ export function UpdatePasswordForm() {
         try {
             if (!userData?.id) return;
 
-            await api.put(`/password/${userData.id}`, {
+            await api.put(`/users/password/${userData.id}`, {
                 oldPassword: data.oldPassword,
                 newPassword: data.newPassword,
             });
 
             showCustomToast("Senha atualizada com sucesso!", "success");
+            reset();
+
         } catch (error: any) {
             const message =
                 error?.response?.data?.error || "Erro ao atualizar senha. Verifique os dados informados.";
@@ -61,7 +64,7 @@ export function UpdatePasswordForm() {
         }
     }
     return (
-        <form onSubmit={handleSubmit(handlerRegister)} className="mt-10">
+        <form onSubmit={handleSubmit(handlerRegister)} className="my-10">
             <h4 className="text-lg font-semibold mb-4 text-defaultDarkGreen">Atualizar Senha</h4>
             <div className="flex flex-col gap-4">
                 <Input

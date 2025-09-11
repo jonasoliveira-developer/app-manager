@@ -28,7 +28,9 @@ export default function LoginPage() {
                                 </h1>
                             </Link>
                         </div>
-
+                        <h2 className="text-xl md:text-2xl font-semibold mb-5 text-center text-gray-800">
+                            Login
+                        </h2>
 
                         <LoginForm />
 

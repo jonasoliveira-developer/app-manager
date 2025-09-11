@@ -28,6 +28,7 @@ export const userSchema = z.object({
     message: "Formato inválido. Deve conter apenas números seguidos de 'F' ou 'TO' (ex: 123456F ou 7890TO)",
   }
 )
+
 });
 
 
