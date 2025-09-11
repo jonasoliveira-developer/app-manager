@@ -6,13 +6,13 @@ import { z } from "zod";
 import { Input } from "@/components/input";
 import { api } from "@/lib/api";
 import { useAuth } from "@/context/AuthContext";
+import { useUserContext } from "@/context/UserContext";
 import { showCustomToast } from "@/utils/toast";
 import { useRouter } from "next/navigation";
 import { Textarea } from "../textarea";
 
 const evolutionSchema = z.object({
   title: z.string().min(1, "O título é obrigatório"),
-  councilRegistrationNumber: z.string().min(1, "O registro é obrigatório"),
   day: z.string().min(1, "Dia é obrigatório"),
   month: z.string().min(1, "Mês é obrigatório"),
   year: z.string().min(4, "Ano é obrigatório"),
@@ -25,6 +25,7 @@ export function ReportCreate({ id }: { id: string }) {
 
 
   const { user } = useAuth();
+  const {userData} = useUserContext();
   const router = useRouter();
 
   const {
@@ -46,7 +47,7 @@ export function ReportCreate({ id }: { id: string }) {
     try {
       await api.post("/reports", {
         title: data.title,
-        councilRegistrationNumber: data.councilRegistrationNumber,
+        councilRegistrationNumber: userData?.councilRegistrationNumber,
         date,
         text: data.text,
         userId: user?.id,
@@ -70,14 +71,6 @@ export function ReportCreate({ id }: { id: string }) {
         name="title"
         placeholder="Título da evolução"
         error={errors.title?.message}
-        register={register}
-      />
-
-      <Input
-        type="text"
-        name="councilRegistrationNumber"
-        placeholder="Registro profissional"
-        error={errors.councilRegistrationNumber?.message}
         register={register}
       />
 

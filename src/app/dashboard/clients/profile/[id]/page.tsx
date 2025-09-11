@@ -29,8 +29,9 @@ export default function ProfilePage({ params }: { params: Promise<{ id: string }
   const [loading, setLoading] = useState(true);
 
   const router = useRouter();
-  const { logout, user } = useAuth();
+  const { logout } = useAuth();
   const { id } = use(params);
+
 
   useEffect(() => {
     async function fetchClient() {
@@ -45,16 +46,20 @@ export default function ProfilePage({ params }: { params: Promise<{ id: string }
       }
     }
 
-    fetchClient();
+    if (id) fetchClient();
   }, [id]);
 
   const handleDelete = async () => {
-    const confirmDelete = window.confirm('Tem certeza que deseja deletar este perfil? Essa ação não pode ser desfeita.');
+    if (!dataClient?.id) return;
 
-    if (!confirmDelete || !dataClient?.id) return;
+    const confirmDelete = window.confirm(
+      `Tem certeza que deseja deletar o perfil de ${dataClient.name}? Essa ação não pode ser desfeita.`
+    );
+
+    if (!confirmDelete) return;
 
     try {
-      await api.delete(`/clients/${dataClient.id}`);
+      await api.delete(`/clients/${id}`);
       showCustomToast('Perfil deletado com sucesso!', 'success');
       router.push('/dashboard/clients');
     } catch (error) {
@@ -68,6 +73,14 @@ export default function ProfilePage({ params }: { params: Promise<{ id: string }
     showCustomToast('Até já! Te vejo em breve!', 'info');
     router.push('/');
   };
+
+  if (loading) {
+    return (
+      <Container>
+        <p className="text-center text-gray-500 mt-10">Carregando dados do paciente...</p>
+      </Container>
+    );
+  }
 
   return (
     <Container>
@@ -88,6 +101,7 @@ export default function ProfilePage({ params }: { params: Promise<{ id: string }
             <button
               onClick={handleDelete}
               className="flex-1 px-6 py-2 bg-red-600 text-white rounded hover:bg-red-700 transition"
+              disabled={!dataClient?.id}
             >
               Deletar
             </button>

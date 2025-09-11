@@ -4,13 +4,14 @@ export interface InputProps {
     type: string;
     placeholder: string;
     name: string;
+    disabled?:boolean
     register: UseFormRegister<any>;
     error?: string;
     rules?: RegisterOptions;
     
 }
 
-export function Input({name, type, placeholder, register, rules, error}: InputProps) {
+export function Input({name, type, placeholder, disabled, register, rules, error}: InputProps) {
 
 
     return (
@@ -20,6 +21,7 @@ export function Input({name, type, placeholder, register, rules, error}: InputPr
                 id={name}
                 type={type}
                 placeholder={placeholder}
+                disabled={disabled}
                 {...register(name,rules)}
 
              />

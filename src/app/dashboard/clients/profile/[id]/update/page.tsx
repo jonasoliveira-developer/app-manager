@@ -1,7 +1,9 @@
 import { Container } from "@/components/container";
 import { EditClient } from "@/components/form/editClient";
 import Link from "next/link";
+
 import { use } from "react";
+import { SlArrowLeft } from "react-icons/sl";
 
 export default function UpdateClient({ params }: { params: Promise<{ id: string }> }) {
   const { id } = use(params);
@@ -13,11 +15,11 @@ export default function UpdateClient({ params }: { params: Promise<{ id: string 
         style={{ height: "calc(100vh - 8.5rem)" }}
       >
         {/* Logo estilizado */}
-        <Link href="/">
-          <h1 className="text-3xl font-bold text-defaultGreen mb-6">
-            Fisio<span className="text-defaultBlack">Admin</span>
-          </h1>
-        </Link>
+        <div className="w-full max-w-3xl flex items-center mb-5">
+          <Link href={`/dashboard/clients/profile/${id}`}>
+            <SlArrowLeft className="hover:cursor-pointer text-defaultGreen" />
+          </Link>
+        </div>
         {/* Subtítulo */}
         <p className="text-gray-600 text-base mb-6 max-w-xl">
           Atualize os dados do paciente para manter os registros sempre organizados e precisos.

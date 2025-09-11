@@ -6,6 +6,8 @@ import { SignatureField } from "@/components/assign";
 import { api } from "@/lib/api";
 import { showCustomToast } from "@/utils/toast";
 import { useParams } from "next/navigation";
+import Link from "next/link";
+import { SlArrowLeft } from "react-icons/sl";
 
 // Interface do relatório
 interface Report {
@@ -28,7 +30,7 @@ function formatDate(dateString: string): string {
 }
 
 export default function ReportPage() {
-  const { evaluate } = useParams();
+  const { evaluate, id, unique } = useParams();
   const [report, setReport] = useState<Report | null>(null);
   const [client, setClient] = useState<any>(null);
   const [user, setUser] = useState<any>(null);
@@ -61,10 +63,15 @@ export default function ReportPage() {
 
   return (
     <main className="max-w-screen-lg w-full mx-auto p-4 sm:p-6 print:p-2 bg-white border border-gray-300 shadow-sm rounded-lg overflow-auto print:shadow-none print:border-none">
-      <FaPrint
-        className="text-defaultGreen text-lg cursor-pointer print:hidden mb-4"
-        onClick={() => window.print()}
-      />
+      <div className="w-full  flex items-center justify-between mb-10 print:hidden">
+        <Link href={`/dashboard/clients/profile/${id}/appointment/${unique}`}>
+          <SlArrowLeft className="hover:cursor-pointer text-defaultGreen" />
+        </Link>
+        <FaPrint
+          className="text-defaultGreen text-lg cursor-pointer"
+          onClick={() => window.print()}
+        />
+      </div>
 
       {/* Título centralizado */}
       <header className="mb-6 print:mb-4">
@@ -97,15 +104,15 @@ export default function ReportPage() {
         {/* Marca d'água expandida e centralizada */}
         <div className="absolute inset-0  items-center justify-center w-full h-full pointer-events-none print:opacity-10 opacity-0 print:flex hidden">
           <p className="text-[6vw] font-bold text-gray-300 rotate-[315deg] select-none print:text-[3vw] text-center w-full">
-            JNS CLÍNICA
+            {user.name}
           </p>
         </div>
       </section>
 
       {/* Assinaturas */}
       <section className="w-full flex flex-col gap-4 print:gap-2">
-        <SignatureField name={client?.name} />
-        <SignatureField name={user?.name} />
+        <SignatureField type="assignUser" name={user.name} reportId={report.id} />
+        <SignatureField type="assignClient" name={client.name} reportId={report.id} />
       </section>
 
       {/* Marca d'água para impressão */}

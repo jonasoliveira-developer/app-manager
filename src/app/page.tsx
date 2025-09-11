@@ -3,6 +3,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import Hero from "@/assets/hero.svg";
+import Finance from "@/assets/finance.png"
 import { useAuth } from "@/context/AuthContext";
 import { useRouter } from "next/navigation";
 
@@ -14,7 +15,7 @@ export default function Home() {
   const { logout } = useAuth();
 
   useEffect(() => {
-    logout(); 
+    logout();
   }, []);
 
   return (
@@ -35,8 +36,8 @@ export default function Home() {
               Teste gratuitamente por 30 dias.
             </button>
           </Link>
-          <p className="mt-3 mb-2 text-lg leading-relaxed">
-            E fique tranquilo — não pedimos seu cartão para testar.
+          <p className="mt-3 mb-2 text-lg leading-relaxed text-red-400">
+            E fique tranquilo — NÃO pedimos seu cartão para testar.
           </p>
         </div>
 
@@ -53,36 +54,116 @@ export default function Home() {
           <h1 className="font-semibold text-5xl text-defaultWhite mb-12 leading-tight">
             Tudo que você precisa em um só lugar
           </h1>
-          <div className="w-full flex flex-col items-center justify-center gap-4 md:flex-row">
-            {[...Array(3)].map((_, i) => (
-              <ul key={i} className="w-full max-w-80 p-5 bg-defaultWhite text-center rounded-3xl">
-                <h2 className="font-bold text-xl mb-3">Agendamentos</h2>
-                {[...Array(4)].map((_, j) => (
-                  <li key={j} className="text-base leading-relaxed">
-                    Agende seus pacientes com facilidade e envie notificações
-                  </li>
-                ))}
-              </ul>
-            ))}
+          <div className="w-full flex flex-col items-center justify-center gap-4 md:flex-row animate-fade-in">
+            <ul className="w-full max-w-80 p-5 bg-defaultWhite text-left rounded-3xl list-disc list-inside shadow-md transform transition duration-300 hover:scale-105 hover:shadow-lg">
+              <h2 className="font-bold text-xl mb-3 text-center text-blue-400">Agendamentos</h2>
+              <li className="text-base leading-relaxed">
+                Reduz conflitos de horário e melhora a organização da agenda
+              </li>
+              <li className="text-base leading-relaxed">
+                Permite envio automático de lembretes e notificações aos pacientes
+              </li>
+              <li className="text-base leading-relaxed">
+                Aumenta a taxa de comparecimento e reduz faltas
+              </li>
+            </ul>
+            <ul className="w-full max-w-80 p-5 bg-defaultWhite text-left rounded-3xl list-disc list-inside shadow-md transform transition duration-300 hover:scale-105 hover:shadow-lg">
+              <h2 className="font-bold text-xl mb-3 text-center text-green-500">Recibos de Pagamento</h2>
+              <li className="text-base leading-relaxed">
+                Registro formal de transações financeiras com o paciente
+              </li>
+              <li className="text-base leading-relaxed">
+                Facilidade para contabilidade e controle fiscal
+              </li>
+              <li className="text-base leading-relaxed">
+                Redução de erros e extravios com documentos digitais
+              </li>
+              <li className="text-base leading-relaxed">
+                Possibilidade de assinatura digital
+              </li>
+            </ul>
+            <ul className="w-full max-w-80 p-5 bg-defaultWhite text-left rounded-3xl list-disc list-inside shadow-md transform transition duration-300 hover:scale-105 hover:shadow-lg">
+              <h2 className="font-bold text-xl mb-3 text-center text-yellow-400">Relatórios em PDF</h2>
+              <li className="text-base leading-relaxed">
+                Padronização profissional para prontuários e documentos clínicos
+              </li>
+              <li className="text-base leading-relaxed">
+                Facilidade de compartilhamento por e-mail ou WhatsApp
+              </li>
+              <li className="text-base leading-relaxed">
+                Arquivamento digital seguro e acessível
+              </li>
+            </ul>
+
           </div>
         </div>
+
+        <section className="w-full bg-white py-12 px-6">
+          <div className="max-w-5xl mx-auto text-center mb-10 bg-defaultSnow">
+            <h2 className="text-4xl font-bold text-defaultDarkGreen mb-4">Financeiro</h2>
+            <p className="text-lg text-gray-700 p-4">
+              Tenha controle total sobre suas finanças com metas salariais, projeções de receita, categorização de despesas e relatórios inteligentes. Organize seu fluxo de caixa com clareza e tome decisões com confiança.
+            </p>
+          </div>
+
+          <div className="w-full h-[75vh] overflow-hidden rounded-lg shadow-lg">
+            <Image
+              src={Finance}
+              alt="Ilustração de controle financeiro"
+              className="w-full h-full object-cover"
+            />
+          </div>
+        </section>
 
         {/* Funcionalidades - Branco */}
         <div className="w-full min-h-[80vh] mt-20 p-4 bg-defaultWhite rounded-3xl text-center flex items-center justify-center flex-col">
           <h1 className="font-semibold text-5xl text-defaultDarkGreen mb-12 leading-tight">
-            Tudo que você precisa em um só lugar
+            E nós vamos além do trivial
           </h1>
           <div className="w-full flex flex-col items-center justify-center gap-4 md:flex-row">
-            {[...Array(3)].map((_, i) => (
-              <ul key={i} className="w-full max-w-80 p-5 bg-defaultGreen text-defaultWhite text-center rounded-3xl">
-                <h2 className="font-bold text-xl mb-3">Agendamentos</h2>
-                {[...Array(4)].map((_, j) => (
-                  <li key={j} className="text-base leading-relaxed">
-                    Agende seus pacientes com facilidade e envie notificações
-                  </li>
-                ))}
-              </ul>
-            ))}
+            <ul className="w-full max-w-80 p-5 bg-defaultGreenHover text-defaultWhite text-left rounded-3xl list-disc list-inside shadow-md transform transition duration-300 hover:scale-105 hover:shadow-lg">
+              <h2 className="font-bold text-xl mb-3 text-center text-yellow-300"> Autônomos</h2>
+              <li className="text-base leading-relaxed">
+                Agendamento rápido e intuitivo.
+              </li>
+              <li className="text-base leading-relaxed">
+                Controle centralizado de pacientes.
+              </li>
+              <li className="text-base leading-relaxed">
+                Organização visual da agenda.
+              </li>
+              <li className="text-base leading-relaxed">
+                Histórico completo de atendimentos.
+              </li>
+            </ul>
+            <ul className="w-full max-w-80 p-5 bg-defaultGreenHover text-defaultWhite text-left rounded-3xl list-disc list-inside shadow-md transform transition duration-300 hover:scale-105 hover:shadow-lg">
+              <h2 className="font-bold text-xl mb-3 text-center text-blue-600">Inovação</h2>
+              <li className="text-base leading-relaxed">
+                Acesso via web, celular e desktop, onde você estiver.
+              </li>
+              <li className="text-base leading-relaxed">
+                Funcionalidades offline para continuar trabalhando mesmo sem internet.
+              </li>
+              <li className="text-base leading-relaxed">
+                Sincronização automática dos dados assim que a conexão for restabelecida.
+              </li>
+            </ul>
+            <ul className="w-full max-w-80 p-5 bg-defaultGreenHover text-defaultWhite text-left rounded-3xl list-disc list-inside shadow-md transform transition duration-300 hover:scale-105 hover:shadow-lg">
+              <h2 className="font-bold text-xl mb-3 text-center text-gray-400">Blog & Perfil Profissional</h2>
+              <li className="text-base leading-relaxed">
+                Perfil social com foto, biografia e competências clínicas
+              </li>
+              <li className="text-base leading-relaxed">
+                Postagens sobre estudos, ideias, novidades e rotina profissional
+              </li>
+              <li className="text-base leading-relaxed">
+                Captação de pacientes por meio de conteúdo relevante e educativo
+              </li>
+              <li className="text-base leading-relaxed">
+                Engajamento  através de comentários e reações
+              </li>
+
+            </ul>
           </div>
         </div>
 

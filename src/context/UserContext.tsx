@@ -1,20 +1,23 @@
 "use client";
 
 import { createContext, useContext, useState, useEffect } from "react";
-import Cookies from "js-cookie";
 import { api } from "@/lib/api";
 
 export interface UserType {
-    id: string;
-    name: string;
-    email: string;
-    phoneNumber: string;
-    accountStatus: string;
-    councilRegistrationNumber?: string;
-    subscriptionType?: "BASIC" | "PREMIUM" | "FREE";
-    imageUrl?: string;
+  id: string;
+  name: string;
+  email: string;
+  phoneNumber: string;
+  accountStatus: "ACTIVE" | "INACTIVE" | "BLOCKED" | "DELETED";
+  councilRegistrationNumber?: string;
+  subscriptionType?: "BASIC" | "PREMIUM" | "FREE";
+  imageUrl?: string;
+  imageMimeType?: string;
+  imageProfile?: string; // se estiver usando base64 ou URL
+  imageWatermark?: string; // idem
+  biography?: string;
+  aboutMe?: string;
 }
-
 interface UserContextType {
     userData: UserType | null;
     setUserData: (user: UserType | null) => void;
@@ -29,21 +32,35 @@ export function UserProvider({ children }: { children: React.ReactNode }) {
     async function fetchUser(id: string) {
         try {
             const response = await api.get(`/users/${id}`);
-            setUserData(response.data);
-            Cookies.set("userData", JSON.stringify(response.data), { expires: 7 });
+            const user = response.data;
+
+            if (user && user.id) {
+                // imageUrl já vem completa, não precisa montar
+                setUserData(user);
+                localStorage.setItem("userData", JSON.stringify(user));
+            }
         } catch (error) {
             console.error("Erro ao buscar usuário:", error);
         }
     }
 
     useEffect(() => {
-        const cookieData = Cookies.get("userData");
-        if (cookieData) {
+        const storedData = localStorage.getItem("userData");
+
+        if (
+            storedData &&
+            storedData !== "undefined" &&
+            storedData !== "null" &&
+            storedData.trim() !== ""
+        ) {
             try {
-                const parsed = JSON.parse(cookieData);
-                setUserData(parsed);
+                const parsed: UserType = JSON.parse(storedData);
+                if (parsed && parsed.id) {
+                    setUserData(parsed);
+                }
             } catch (err) {
-                console.error("Erro ao ler cookie do usuário:", err);
+                console.error("Erro ao ler localStorage do usuário:", err);
+                localStorage.removeItem("userData");
             }
         }
     }, []);
