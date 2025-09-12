@@ -4,7 +4,7 @@ const OFFLINE_URL = '/offline.html';
 const urlsToCache = [
   '/',
   '/manifest.json',
-  '/favicon.ico',
+  '/favicon.png',
   '/icon-192x192.png',
   '/icon-512x512.png',
   '/apple-touch-icon.png',
