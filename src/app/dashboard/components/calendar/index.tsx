@@ -126,7 +126,7 @@ export function CareCalendar() {
   return (
     <div className="w-full px-4 py-8 bg-white rounded shadow">
       <h1 className="text-4xl mb-10 font-bold text-defaultDarkGreen text-center">
-        Agenda de pacientes
+        Agendamentos
       </h1>
 
       <Calendar

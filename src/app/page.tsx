@@ -225,8 +225,8 @@ export default function Home() {
           <div className="flex flex-col gap-2 text-center md:text-left">
             <h2 className="text-xl font-bold mb-2">Páginas</h2>
             <a href="/login" className="hover:underline">Login</a>
-            <a href="/cadastro" className="hover:underline">Cadastro</a>
-            <a href="/sobre" className="hover:underline">Sobre</a>
+            <a href="/about" className="hover:underline">Institucional</a>
+            <a href="/term" className="hover:underline">Termos & Condições</a>
           </div>
 
           {/* Coluna 3 - Redes Sociais */}
