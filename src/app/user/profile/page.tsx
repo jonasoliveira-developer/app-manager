@@ -70,13 +70,13 @@ export default function UserProfile() {
                 onClick={handleDelete}
                 className="px-6 py-2 bg-red-600 text-white rounded hover:bg-red-700 transition-colors"
               >
-                Deletar Conta
+                Deletar 
               </button>
               <Link
                 href="/user/profile/update"
                 className="px-6 py-2 bg-defaultGreen text-white rounded hover:bg-defaultGreenHover transition-colors"
               >
-                Editar Perfil
+                Editar 
               </Link>
             </div>
          
